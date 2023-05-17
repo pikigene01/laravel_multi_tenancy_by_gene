@@ -32,8 +32,9 @@
         <div class="container">
             <Link class="navbar-brand bg-transparent" :href="'/'">
                 <img
+                   style="width:103px;"
                     :src="this.app_values['app_icon']"
-                    class="app-logo w-50 img_setting"
+                    class="app-logo img_setting"
                 />
             </Link>
             <button

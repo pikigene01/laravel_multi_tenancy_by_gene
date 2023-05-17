@@ -249,18 +249,18 @@
                                     <div class="d-grid text-center">
 
                                             <div class="pricing-cta" v-if="plan.id == 1">
-                                                <Link :href="plan_links[index].link"
+                                                <a :href="plan_links[index].link"
                                                     class="subscribe_plan btn btn-primary btn-block mt-2 btn btn-primary btn-block mt-2"
                                                     :data-id="plan.id "
                                                     :data-amount="plan.price">{{ 'Free' }}
-                                                    <i class="ti ti-chevron-right ms-2"></i></Link>
+                                                    <i class="ti ti-chevron-right ms-2"></i></a>
                                             </div>
                                             <div class="pricing-cta" v-else-if="plan.id != 1">
-                                                <Link :href="plan_links[index].link"
+                                                <a :href="plan_links[index].link"
                                                     class="subscribe_plan btn btn-primary btn-block mt-2 btn btn-primary btn-block mt-2"
                                                     :data-id="plan.id"
                                                     :data-amount="plan.price">{{ 'Subscribe' }}
-                                                    <i class="ti ti-chevron-right ms-2"></i></Link>
+                                                    <i class="ti ti-chevron-right ms-2"></i></a>
                                             </div>
 
                                     </div>

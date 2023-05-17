@@ -70,8 +70,8 @@
                 {!! Form::text('domains', null, [
                     'class' => 'form-control',
                     ' required',
-                    'placeholder' => __('Enter domain name'),
-                ]) !!}
+                    'placeholder' => __('choose your app name'),
+                ]) !!} <span>companyname.riskcurb.app</span>
             </div>
             {{-- <div class="form-group mb-3">
                 {{ Form::label('actual_domain', __('Actual Domain'), ['class' => 'form-label']) }}
