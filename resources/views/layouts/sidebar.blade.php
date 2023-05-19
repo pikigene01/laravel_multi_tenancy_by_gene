@@ -25,7 +25,7 @@
                 {{-- @if (tenant('id') != null) --}}
                 <li class="dash-item dash-hasmenu ">
                     <a href="{{ route('riskcurb') }}" class="dash-link">
-                        <span class="dash-micon"><i class="ti ti-home"></i></span>
+                        <span class="dash-micon"><i class="ti ti-file"></i></span>
                         <span class="dash-mtext">{{ __('Riskcurb') }}</span>
                     </a>
                 </li>
@@ -38,6 +38,12 @@
                     </a>
                 </li>
                 @if ($users->type == 'Super Admin')
+                <li class="dash-item dash-hasmenu ">
+                    <a href="{{ route('riskcurbKeys') }}" class="dash-link">
+                        <span class="dash-micon"><i class="ti ti-key"></i></span>
+                        <span class="dash-mtext">{{ __('Api Keys') }}</span>
+                    </a>
+                </li>
                     <li
                         class="dash-item dash-hasmenu {{ request()->is('users*') || request()->is('roles*') ? 'active dash-trigger' : 'collapsed' }}">
                         <a href="#!" class="dash-link"><span class="dash-micon"><i

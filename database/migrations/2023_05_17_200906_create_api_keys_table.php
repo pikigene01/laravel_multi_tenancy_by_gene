@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('api_keys', function (Blueprint $table) {
             $table->id();
             $table->text('name')->nullable();
-            $table->text('key')->nullable();
+            $table->text('apikey')->nullable();
             $table->integer('for')->nullable();
             $table->timestamps();
         });

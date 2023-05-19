@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RiskCurb;
+use App\Models\ApiKeys;
 
 
 class RiskCurbApp extends Controller
@@ -17,6 +18,36 @@ class RiskCurbApp extends Controller
     {
 
         return view('admin.riskcurb.dashboard');
+        //
+    }
+    public function apiKeys()
+    {
+        $openAi = ApiKeys::where('name','openAi')->first();
+
+        return view('admin.riskcurb.apiKeys', [
+            'openAi'=>$openAi
+        ]);
+        //
+    }
+    public function apiKeysSave(Request $request)
+    {
+        $openAi = ApiKeys::where('name','openAi')->get();
+
+        if($openAi->count() > 0){
+          $updateKey =  ApiKeys::where('name','openAi')->update(array('apikey'=>$request->apikey));
+          $openAi = ApiKeys::where('name','openAi')->first();
+
+        }else{
+         $newKey = new ApiKeys();
+         $newKey->name = 'openAi';
+         $newKey->apikey = $request->apikey;
+         $newKey->save();
+         $openAi = ApiKeys::where('name','openAi')->first();
+        }
+
+        return view('admin.riskcurb.apiKeys', [
+            'openAi'=>$openAi
+        ]);
         //
     }
 

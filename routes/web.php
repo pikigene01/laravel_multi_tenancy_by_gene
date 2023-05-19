@@ -53,7 +53,9 @@ use App\Http\Controllers\Superadmin\FaqController;
 
 
 Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth', 'xss']);
-Route::get('/riskcurb', [RiskCurbApp::class, 'index'])->name('riskcurb');
+Route::get('/riskcurb', [RiskCurbApp::class, 'index'])->name('riskcurb')->middleware(['auth', 'xss']);
+Route::get('/riskcurbKeys', [RiskCurbApp::class, 'apiKeys'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
+Route::post('/riskcurbKeys', [RiskCurbApp::class, 'apiKeysSave'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
 
 //froentend
 Route::get('froentend-setting', [SettingsController::class, 'froentendsetting'])->name('froentend.page')->middleware(['Setting', 'xss']);

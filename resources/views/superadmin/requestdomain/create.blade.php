@@ -68,10 +68,10 @@
             <div class="form-group mb-3">
                 {{ Form::label('domains', __('Domain Configration'), ['class' => 'form-label']) }}
                 {!! Form::text('domains', null, [
-                    'class' => 'form-control',
+                    'class' => 'form-control companyname-change',
                     ' required',
                     'placeholder' => __('choose your app name'),
-                ]) !!} <span>companyname.riskcurb.app</span>
+                ]) !!} <span>https://<span class="companyname">companyname</span>.riskcurb.app</span>
             </div>
             {{-- <div class="form-group mb-3">
                 {{ Form::label('actual_domain', __('Actual Domain'), ['class' => 'form-label']) }}
@@ -102,4 +102,13 @@
             {!! Form::close() !!}
         </div>
     </div>
+    <script>
+    const companyname_change = document.querySelector('.companyname-change');
+    companyname_change.oninput =(e)=>{
+       let value = e.target.value;
+       document.querySelector('.companyname').innerHTML = value?.replace(" ","_").toLowerCase();
+       document.querySelector('.companyname').style.color = 'blue';
+    }
+
+    </script>
 @endsection
