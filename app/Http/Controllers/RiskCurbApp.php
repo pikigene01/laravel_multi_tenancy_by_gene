@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RiskCurb;
 use App\Models\ApiKeys;
-
+use OpenAI\Client;
 
 class RiskCurbApp extends Controller
 {
@@ -16,8 +16,10 @@ class RiskCurbApp extends Controller
      */
     public function index()
     {
+      $content = "";
+      $title = "";
 
-        return view('admin.riskcurb.dashboard');
+        return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title]);
         //
     }
     public function apiKeys()
@@ -59,6 +61,38 @@ class RiskCurbApp extends Controller
     public function create(Request $request)
     {
         //
+        if ($request->title == null) {
+            return;
+        }
+
+        $openAi = ApiKeys::where('name','openAi')->get();
+
+        if($openAi->count() > 0){
+          $openAi = ApiKeys::where('name','openAi')->first();
+          $openAi = $openAi->apikey;
+        }else{
+         $openAi = "";
+        }
+
+        $title = $request->title;
+
+        // $client = \OpenAI::client(env('OPENAI_API_KEY'));
+        $client = \OpenAi::client($openAi);
+
+        $result = $client->completions()->create([
+            "model" => "text-davinci-003",
+            "temperature" => 0.7,
+            "top_p" => 1,
+            "frequency_penalty" => 0,
+            "presence_penalty" => 0,
+            'max_tokens' => 600,
+            'prompt' => sprintf('Write article about: %s', $title),
+        ]);
+
+        $content = trim($result['choices'][0]['text']);
+
+        return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title]);
+
     }
 
     /**

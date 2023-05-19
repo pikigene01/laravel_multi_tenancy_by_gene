@@ -36,6 +36,8 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\RiskCurbApp;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,10 @@ Route::middleware([
     InitializeTenancyByDomainOrSubdomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+    Route::get('/riskcurb', [RiskCurbApp::class, 'index'])->name('riskcurb')->middleware(['auth', 'xss']);
+    Route::get('/riskcurbKeys', [RiskCurbApp::class, 'apiKeys'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
+    Route::post('/riskcurbKeys', [RiskCurbApp::class, 'apiKeysSave'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
+    Route::post('/risks/generate', [RiskCurbApp::class, 'create'])->name('risks.generate')->middleware(['auth', 'xss']);
 
     Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth', 'xss']);
     // Route::get('landing-page', [SettingsController::class, 'landingPage'])->name('landing.page');

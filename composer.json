@@ -24,6 +24,8 @@
         "livewire/livewire": "^2.12",
         "mercadopago/dx-php": "^2.5",
         "munafio/chatify": "^1.5",
+        "openai-php/client": "^0.3.5",
+        "openai-php/laravel": "^0.3.4",
         "paragonie/recaptcha": "^2.1",
         "paytm/js-checkout": "dev-master",
         "pragmarx/google2fa-laravel": "^2.0",

@@ -114,8 +114,8 @@ class DatabaseSeeder extends Seeder
         }
 
         $user = User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@example.com',
+            'name' => 'Curboftware',
+            'email' => 'admin@curbsoftware.com',
             'password' => Hash::make('admin'),
             'avatar' => 'avatar/avatar.png',
             'type' => 'Super Admin',

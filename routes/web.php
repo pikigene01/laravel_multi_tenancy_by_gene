@@ -56,6 +56,7 @@ Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.ma
 Route::get('/riskcurb', [RiskCurbApp::class, 'index'])->name('riskcurb')->middleware(['auth', 'xss']);
 Route::get('/riskcurbKeys', [RiskCurbApp::class, 'apiKeys'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
 Route::post('/riskcurbKeys', [RiskCurbApp::class, 'apiKeysSave'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
+Route::post('/risks/generate', [RiskCurbApp::class, 'create'])->name('risks.generate')->middleware(['auth', 'xss']);
 
 //froentend
 Route::get('froentend-setting', [SettingsController::class, 'froentendsetting'])->name('froentend.page')->middleware(['Setting', 'xss']);
