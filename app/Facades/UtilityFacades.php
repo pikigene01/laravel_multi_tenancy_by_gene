@@ -10,4 +10,5 @@ class UtilityFacades extends Facade
     {
         return 'utility';
     }
+
 }

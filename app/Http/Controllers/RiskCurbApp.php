@@ -14,12 +14,42 @@ class RiskCurbApp extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public $tenant_id;
+    public $step;
+    public function __construct()
+    {
+          $this->tenant_id = "1";
+          $this->step = "1";
+    }
+
     public function index()
     {
       $content = "";
       $title = "";
 
         return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title]);
+        //
+    }
+    public function indexFramework()
+    {
+      $content = "No created framework for now!!!";
+      $title = "";
+      $data = RiskCurb::where('tenant_id', $this->tenant_id)->first();
+      if( $data){
+          $this->step =  $data->steps;
+      }else{
+          $this->step = 1;
+      }
+
+        return view('admin.riskcurb.framework', ["content"=>$content ,"title"=> $title, "step"=>$this->step,"data"=>$data]);
+        //
+    }
+    public function indexReports()
+    {
+      $content = "No Reports for now!!!";
+      $title = "";
+
+        return view('admin.riskcurb.reports', ["content"=>$content ,"title"=> $title]);
         //
     }
     public function apiKeys()
@@ -31,6 +61,7 @@ class RiskCurbApp extends Controller
         ]);
         //
     }
+
     public function apiKeysSave(Request $request)
     {
         $openAi = ApiKeys::where('name','openAi')->get();
@@ -64,6 +95,7 @@ class RiskCurbApp extends Controller
         if ($request->title == null) {
             return;
         }
+        $step = "1";
 
         $openAi = ApiKeys::where('name','openAi')->get();
 
@@ -91,8 +123,74 @@ class RiskCurbApp extends Controller
 
         $content = trim($result['choices'][0]['text']);
 
-        return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title]);
+        return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title, "step"=>$step]);
 
+    }
+    public function createFramework(Request $request)
+    {
+        // dd($request);
+        $content = "";
+        $title = "";
+        $riskcurb_step = RiskCurb::where('tenant_id', $this->tenant_id)->first();
+        if( $riskcurb_step){
+            $this->step =  $riskcurb_step->steps += 1;
+        }else{
+            $this->step = 1;
+        }
+        $dataValues = array(
+          "organization"=>$request->organization,
+          "organization_type"=>$request->organization_type,
+          "location"=>$request->location,
+          "city"=>$request->city,
+          "state"=>$request->state,
+          "country"=>$request->country,
+          "assets"=>$request->assets,
+          "products"=>$request->products,
+          "services"=>$request->services,
+          "structure_type"=>$request->structure_type,
+          "components"=>$request->components,
+          "customer_types"=>$request->customer_types,
+          "stakeholders"=>$request->stakeholders,
+          "workers"=>$request->workers,
+          "steps"=>$this->step,
+        );
+
+        $riskcurb_data = RiskCurb::where('tenant_id', $this->tenant_id)->get();
+        if($riskcurb_data->count() > 0){
+            $update_request = RiskCurb::where('tenant_id', $this->tenant_id)->
+            update($dataValues);
+
+        }else{
+            $riskcurb_model = new RiskCurb();
+            $riskcurb_model->tenant_id = $this->tenant_id;
+            $riskcurb_model->organization = $request->organization;
+            $riskcurb_model->save();
+        }
+
+      if($this->step >= "12"){
+        $content = "Generating RM Framework";
+      }
+
+        return view('admin.riskcurb.framework', ["content"=>$content ,"title"=> $title, "step"=>$this->step,"data"=>$riskcurb_step]);
+
+    }
+
+    public function apiKeysRemove()
+    {
+        $content = "";
+        $title = "";
+        $riskcurb_step = RiskCurb::where('tenant_id', $this->tenant_id)->first();
+        if( $riskcurb_step){
+            $this->step = 1;
+            RiskCurb::where('tenant_id', $this->tenant_id)->update(array('steps'=>$this->step));
+        }else{
+
+        }
+        return view('admin.riskcurb.framework', [
+            'step'=>'1',"data"=>$riskcurb_step,
+            "content"=>$content ,"title"=> $title
+        ]);
+        //
     }
 
     /**

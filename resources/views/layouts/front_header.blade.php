@@ -45,8 +45,8 @@
     <nav class="navbar navbar-expand-md navbar-dark default top-nav-collapse">
         <div class="container">
             <a class="navbar-brand bg-transparent" href="{{ route('landingpage') }}">
-                <img src="{{ Storage::exists('logo/app-logo.png') ? Utility::getpath('logo/app-logo.png') : Storage::url('logo/app-logo.png') }}"
-                    class="app-logo w-50 img_setting">
+                <img style="width:100px;" src="{{ Storage::exists('logo/app-logo.png') ? Utility::getpath('logo/app-logo.png') : Storage::url('logo/app-logo.png') }}"
+                    class="app-logo img_setting">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"

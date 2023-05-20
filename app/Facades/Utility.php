@@ -39,6 +39,15 @@ class Utility
         return Carbon::parse($date)->format($this->getsettings('date_format'));
     }
 
+    public function check_null($value = null){
+        if($value){
+         return $value;
+        }else{
+         return null;
+        }
+        return $value;
+ }
+
     public function time_format($date)
     {
         return Carbon::parse($date)->format($this->getsettings('time_format'));

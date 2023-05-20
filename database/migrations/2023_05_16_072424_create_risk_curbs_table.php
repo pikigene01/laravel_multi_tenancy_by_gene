@@ -19,7 +19,18 @@ return new class extends Migration
             $table->text('organization')->nullable();
             $table->text('organization_type')->nullable();
             $table->text('location')->nullable();
-            $table->integer('workers')->nullable();
+            $table->text('city')->nullable();
+            $table->text('state')->nullable();
+            $table->text('country')->nullable();
+            $table->text('assets')->nullable();
+            $table->text('products')->nullable();
+            $table->text('services')->nullable();
+            $table->text('structure_type')->nullable();
+            $table->text('components')->nullable();
+            $table->text('customer_types')->nullable();
+            $table->text('stakeholders')->nullable();
+            $table->text('workers')->nullable();
+            $table->text('steps')->nullable();
             $table->timestamps();
         });
     }

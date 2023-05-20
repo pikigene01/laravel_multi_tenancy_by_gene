@@ -23,12 +23,27 @@
         <div class="navbar-content">
             <ul class="dash-navbar">
                 {{-- @if (tenant('id') != null) --}}
-                <li class="dash-item dash-hasmenu ">
-                    <a href="{{ route('riskcurb') }}" class="dash-link">
-                        <span class="dash-micon"><i class="ti ti-file"></i></span>
-                        <span class="dash-mtext">{{ __('Riskcurb') }}</span>
-                    </a>
-                </li>
+
+                <li
+                class="dash-item dash-hasmenu {{ request()->is('riskcurb*') || request()->is('framework*') ? 'active dash-trigger' : 'collapsed' }}">
+                <a href="#!" class="dash-link"><span class="dash-micon"><i
+                            class="ti" style="font-size: 10px;font-weight:800;">RM</i></span><span
+                        class="dash-mtext">{{ 'RiskCurb' }}</span><span class="dash-arrow"><i
+                            data-feather="chevron-right"></i></span></a>
+                <ul class="dash-submenu">
+
+                    <li class="dash-item {{ request()->is('framework*') ? 'active' : '' }}">
+                        <a class="dash-link" href="{{ route('riskcurb.framework') }}">{{ __('RM Framework') }}</a>
+                    </li>
+                    {{-- <li class="dash-item {{ request()->is('riskcurb') ? 'active' : '' }}">
+                        <a class="dash-link" href="{{ route('riskcurb') }}">{{ __('RM Process') }}</a>
+                    </li> --}}
+                    <li class="dash-item {{ request()->is('reports') ? 'active' : '' }}">
+                        <a class="dash-link" href="{{ route('riskcurb.reports') }}">{{ __('Reports') }}</a>
+                    </li>
+
+                </ul>
+            </li>
            {{-- @endif --}}
 
                 <li class="dash-item dash-hasmenu ">

@@ -271,8 +271,8 @@ class RequestDomainController extends Controller
                     "link"=>route('requestdomain.create', Crypt::encrypt(['plan_id' => $plan->id]))
                 ]);
                }
-                return Inertia::render('HomePage', ['plans'=>$plans, 'features'=>$features ,'faqs'=>$faqs,'Utility'=> $utility,"app_values"=>$this->app_values,"plan_links"=>$this->plan_links]);
-                // return view('welcome', compact('plans', 'features', 'faqs'));
+                // return Inertia::render('HomePage', ['plans'=>$plans, 'features'=>$features ,'faqs'=>$faqs,'Utility'=> $utility,"app_values"=>$this->app_values,"plan_links"=>$this->plan_links]);
+                return view('welcome', compact('plans', 'features', 'faqs'));
             // return view('Home');
 
             } else {
