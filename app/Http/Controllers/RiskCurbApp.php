@@ -97,6 +97,21 @@ class RiskCurbApp extends Controller
         }
         $step = "1";
 
+
+
+        $title = $request->title;
+
+        // $client = \OpenAI::client(env('OPENAI_API_KEY'));
+
+        $result = $this->parsePrompt($title);
+
+        $content = trim($result['choices'][0]['text']);
+
+        return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title, "step"=>$step]);
+
+    }
+
+    public function parsePrompt($prompt = ""){
         $openAi = ApiKeys::where('name','openAi')->get();
 
         if($openAi->count() > 0){
@@ -106,9 +121,6 @@ class RiskCurbApp extends Controller
          $openAi = "";
         }
 
-        $title = $request->title;
-
-        // $client = \OpenAI::client(env('OPENAI_API_KEY'));
         $client = \OpenAi::client($openAi);
 
         $result = $client->completions()->create([
@@ -118,13 +130,10 @@ class RiskCurbApp extends Controller
             "frequency_penalty" => 0,
             "presence_penalty" => 0,
             'max_tokens' => 600,
-            'prompt' => sprintf('Write article about: %s', $title),
+            'prompt' => sprintf('Write article about: %s', $prompt),
         ]);
 
-        $content = trim($result['choices'][0]['text']);
-
-        return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title, "step"=>$step]);
-
+        return $result;
     }
     public function createFramework(Request $request)
     {
@@ -168,7 +177,9 @@ class RiskCurbApp extends Controller
         }
 
       if($this->step >= "12"){
-        $content = "Generating RM Framework";
+        $result = $this->parsePrompt("Risk likely to face this organisation with stated information");
+
+        $content = $result;
       }
 
         return view('admin.riskcurb.framework', ["content"=>$content ,"title"=> $title, "step"=>$this->step,"data"=>$riskcurb_step]);
