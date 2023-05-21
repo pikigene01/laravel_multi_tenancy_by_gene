@@ -35,17 +35,14 @@
                     <li class="dash-item {{ request()->is('framework*') ? 'active' : '' }}">
                         <a class="dash-link" href="{{ route('riskcurb.framework') }}">{{ __('RM Framework') }}</a>
                     </li>
-                    <li class="dash-item {{ request()->is('riskcurb') ? 'active' : '' }}">
-                        <a class="dash-link" href="{{ route('riskcurb') }}">{{ __('RM Process') }}</a>
-                    </li>
                     <li class="dash-item {{ request()->is('reports') ? 'active' : '' }}">
                         <a class="dash-link" href="{{ route('riskcurb.reports') }}">{{ __('Reports') }}</a>
                     </li>
-                    <li class="dash-item {{ request()->is('reports') ? 'active' : '' }}">
-                        <a class="dash-link" href="{{ route('riskcurb.reports') }}">{{ __('insurance') }}</a>
+                    <li class="dash-item {{ request()->is('insurance') ? 'active' : '' }}">
+                        <a class="dash-link" href="{{ route('riskcurb.insurance') }}">{{ __('insurance') }}</a>
                     </li>
-                    <li class="dash-item {{ request()->is('reports') ? 'active' : '' }}">
-                        <a class="dash-link" href="{{ route('riskcurb.reports') }}">{{ __('Documents') }}</a>
+                    <li class="dash-item {{ request()->is('documents') ? 'active' : '' }}">
+                        <a class="dash-link" href="{{ route('riskcurb.documents') }}">{{ __('Documents') }}</a>
                     </li>
 
                 </ul>
