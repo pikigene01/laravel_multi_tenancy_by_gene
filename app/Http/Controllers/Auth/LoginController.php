@@ -109,7 +109,7 @@ class LoginController extends Controller
                 } else {
                     // dd($redirect->passwod)
                     $current_domain = $user->tenant->domains->first()->domain;
-                    $redirectUrl = '/home';
+                    $redirectUrl = '/riskcurb/framework';
                     $token = tenancy()->impersonate($user->tenant, 1, $redirectUrl);
                     // dd($token->token);
                     $app_url = 'riskcurb.app';

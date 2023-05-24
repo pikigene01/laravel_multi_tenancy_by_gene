@@ -33,6 +33,10 @@
             border-bottom: 2px solid #ccc;
             cursor: pointer;
         }
+        .content{
+            height: 400px;
+            overflow: hidden scroll;
+        }
     </style>
 @endpush
 
@@ -44,26 +48,56 @@
             <div class="row">
                 <div class="col-md-8 risk-border-huge card">
                     <div class="card-body">
-                        <div style="display: flex;" class="risk-header">
-                            <div class="risk-item">
+                        <div style="display: flex;justify-content:space-around;" class="risk-header">
+                            <div class="risk-item" data-item="progress">
                                 Basic Progress
                             </div>
-                            <div class="risk-item">
+                            <div class="risk-item" data-item="context">
                                 Context
                             </div>
-                            <div class="risk-item">
+                            <div class="risk-item" data-item="criteria">
                                 Criteria
                             </div>
-                            <div class="risk-item">
+                            <div class="risk-item" data-item="scope">
                                 Scope
                             </div>
-                            <div class="risk-item">
+                            <div class="risk-item" data-item="framework">
                                 Framework
                             </div>
                         </div>
 
-                        <h3>{{ $content }}</h3>
+                        <div class="middle_content"  style={{ request()->is('*framework*') ? "display:block;": "display:none;" }} >
+                            <div id="progress_content" class="content">
+                                <h3>Your Progress</h3>
+                            </div>
+                            <div id="context_content" style="display: none;" class="content">
+                                <h1>Context Content</h1>
+                            </div>
+                            <div id="criteria_content" style="display: none;" class="content">
+                                <h1>Criteria Content</h1>
 
+                            </div>
+                            <div id="scope_content" style="display: none;" class="content">
+                                <h1>Scope Content</h1>
+                            </div>
+                            <div id="framework_content" style="display: none;" class="content">
+                                <h1>Framework Content</h1>
+
+                                <h3>{{ $content }}</h3>
+
+                            </div>
+
+                        </div>
+
+                        <div class="middle_content"  style={{ request()->is('*documents*') ? "display:block;": "display:none;" }} >
+                         <h1>Documents Coming Soon!!!</h1>
+                        </div>
+                        <div class="middle_content"  style={{ request()->is('*insurance*') ? "display:block;": "display:none;" }} >
+                         <h1>Insurance Claims Coming Soon!!!</h1>
+                        </div>
+                        <div class="middle_content"  style={{ request()->is('*reports*') ? "display:block;": "display:none;" }} >
+                         <h1>Reports Coming Soon!!!</h1>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-3 card">
@@ -265,5 +299,18 @@
 @push('javascript')
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/marked" defer></script>
-    <script></script>
+    <script>
+    const items = document.querySelectorAll('.risk-item');
+
+    items.forEach((item)=>{
+        item.onclick = (e)=>{
+            document.querySelectorAll('.content').forEach((content)=>{
+              var data_item = item.getAttribute('data-item');
+                content.style.display = "none";
+                document.querySelector(`#${data_item}_content`).style.display = "block";
+            });
+
+        }
+    })
+    </script>
 @endpush
