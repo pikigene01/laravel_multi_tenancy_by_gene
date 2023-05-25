@@ -145,7 +145,7 @@ class RiskCurbApp extends Controller
 
                 );
 
-            return json_encode($this->str_replace_assoc($replace,$prompt));
+            return json_encode($this->strReplaceAssoc($replace,$prompt));
 
         if($promptObject){
             $content = $promptObject->content;
