@@ -145,7 +145,7 @@ class RiskCurbApp extends Controller
 
                 );
 
-                return json_encode($this->strReplaceAssoc($replace,$prompt));
+        // return json_encode($this->strReplaceAssoc($replace,$prompt)); this response was  for testing getting variable names
 
         if($promptObject){
             $content = $promptObject->content;
