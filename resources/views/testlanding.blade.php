@@ -11,8 +11,34 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Favicon icon -->
+    <link rel="icon"
+        href="{{ Storage::exists('logo/app-favicon-logo.png') ? Utility::getpath('logo/app-favicon-logo.png') : Storage::url('logo/app-favicon-logo.png') }}"
+        type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+      <!-- font css -->
+      <link rel="stylesheet" href="{{ asset('assets/fonts/tabler-icons.min.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/css/plugins/notifier.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/fonts/feather.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/fonts/material.css') }}">
+      @if (Utility::getsettings('rtl') == '1')
+          <link rel="stylesheet" href="{{ asset('assets/css/style-rtl.css') }}" id="main-style-link">
+      @endif
+      @if (Utility::getsettings('dark_mode') == 'on')
+          <link rel="stylesheet" href="{{ asset('assets/css/style-dark.css') }}">
+      @else
+          <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" id="main-style-link">
+      @endif
+      <!-- vendor css -->
+      <link rel="stylesheet" href="{{ asset('assets/css/customizer.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 <style type="text/css">
     :root {
         --gray: #64748b;
@@ -174,6 +200,13 @@
     font-family: "poppins";
     font-size: var(--font-h5);
      }
+
+     .text-bg-primary{
+        background: var(--indigo);
+     }
+     .border-primary{
+        border: 1px solid var(--indigo);
+     }
 </style>
 <header>
     <section class="app-header">
@@ -188,7 +221,7 @@
             <a class="menu-link" href="#">Home</a>
             <a class="menu-link" href="/#pricing">Pricing</a>
             @if (\Auth::user())
-                <a class="menu-link" href="/home"><span class="app-btn btn-outline">Account </span></a>
+                <a class="menu-link" href="/riskcurb/framework"><span class="app-btn btn-outline">Account </span></a>
             @else
                 <a class="menu-link" href="/login"><span class="app-btn btn-solid">Start Today </span></a>
             @endif
@@ -227,64 +260,113 @@
 
     <main id="pricing">
       <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        @foreach ($plans as $plan)
+        @if ($plan->active_status == 1)
         <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-              <h4 class="my-0 fw-normal">Free</h4>
-            </div>
+            @if ($plan->id == 1)
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                  <h4 class="my-0 fw-normal">{{ $plan->name }}</h4>
+                </div>
+            @else
+            <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                <div class="card-header py-3 text-bg-primary border-primary">
+                  <h4 class="my-0 fw-normal">{{ $plan->name }}</h4>
+                </div>
+            @endif
+
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">$0<small class="text-body-secondary fw-light">/mo</small></h1>
+              <h1 class="card-title pricing-card-title">{{ $currency . '' . $plan->price }}<small class="text-body-secondary fw-light"> / {{ $plan->duration . ' ' . $plan->durationtype }}</small></h1>
               <ul class="list-unstyled mt-3 mb-4">
-                <li>10 users included</li>
-                <li>2 GB of storage</li>
+                <li> {{ __('You have Free Unlimited Updates and') }} <br />
+                    {{ __('Premium Support on each package.') }}</li>
+                    @if ($plan->id == 1)
+                <li>limited storage upload</li>
+                @else
+                <li>unlimited storage upload</li>
+                @endif
                 <li>Email support</li>
+                <li>Risk Management</li>
                 <li>Help center access</li>
               </ul>
-              <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+              @if ($plan->id == 1)
+
+              <a href="{{ route('requestdomain.create', Crypt::encrypt(['plan_id' => $plan->id])) }}"
+                data-id="{{ $plan->id }}"
+                data-amount="{{ $plan->price }}">
+                <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for {{ __('Free') }}</button></i></a>
+              @elseif ($plan->id != 1)
+              <a href="{{ route('requestdomain.create', Crypt::encrypt(['plan_id' => $plan->id])) }}"
+                data-id="{{ $plan->id }}"
+                data-amount="{{ $plan->price }}">
+                <button type="button" class="w-100 btn btn-lg btn-outline-primary">{{ __('Subscribe') }}</button></i></a>
+              @endif
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-              <h4 class="my-0 fw-normal">Pro</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">$15<small class="text-body-secondary fw-light">/mo</small></h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>20 users included</li>
-                <li>10 GB of storage</li>
-                <li>Priority email support</li>
-                <li>Help center access</li>
-              </ul>
-              <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm border-primary">
-            <div class="card-header py-3 text-bg-primary border-primary">
-              <h4 class="my-0 fw-normal">Enterprise</h4>
-            </div>
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title">$29<small class="text-body-secondary fw-light">/mo</small></h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>30 users included</li>
-                <li>15 GB of storage</li>
-                <li>Phone and email support</li>
-                <li>Help center access</li>
-              </ul>
-              <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
-            </div>
-          </div>
-        </div>
+
+        @endif
+        @endforeach
+
       </div>
 
     </main>
-
+    <section class="faq">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-md-9 title">
+                    <h2>
+                        @if (Utility::getsettings('faq_title'))
+                            {{ Utility::getsettings('faq_title') }}
+                        @else
+                            {{ __('Frequently Asked Questions') }}
+                        @endif
+                    </h2>
+                    <p class="m-0">
+                        @if (Utility::getsettings('faq_paragraph'))
+                            {{ Utility::getsettings('faq_paragraph') }}
+                        @else
+                            {{ __(" RiskCurb Faq Content Goes Here.") }}
+                        @endif
+                    </p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10 col-xxl-8">
+                    <div class="accordion accordion-flush" id="accordionExample">
+                        @foreach ($faqs as $faq)
+                            <div class="accordion-item card">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo{{ $faq->id }}" aria-expanded="false"
+                                        aria-controls="collapseTwo{{ $faq->id }}">
+                                        <span class="d-flex align-items-center">
+                                            <i class="ti ti-info-circle text-primary"></i>
+                                            {{ $faq->quetion }}
+                                        </span>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo{{ $faq->id }}" class="accordion-collapse collapse"
+                                    aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        {!! $faq->answer !!}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     @include('layouts.front_footer')
   </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor-all.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/notifier.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/bouncer.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/form-validation.js') }}"></script>
 </html>

@@ -57,6 +57,12 @@
                 </li>
                 @if ($users->type == 'Super Admin')
                 <li class="dash-item dash-hasmenu ">
+                    <a href="{{ route('Adminprompts') }}" class="dash-link">
+                        <span class="dash-micon"><i class="ti ti-line"></i></span>
+                        <span class="dash-mtext">{{ __('Manage Prompts') }}</span>
+                    </a>
+                </li>
+                <li class="dash-item dash-hasmenu ">
                     <a href="{{ route('riskcurbKeys') }}" class="dash-link">
                         <span class="dash-micon"><i class="ti ti-key"></i></span>
                         <span class="dash-mtext">{{ __('Api Keys') }}</span>

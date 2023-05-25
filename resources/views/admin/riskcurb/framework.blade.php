@@ -68,7 +68,8 @@
 
                         <div class="middle_content"  style={{ request()->is('*framework*') ? "display:block;": "display:none;" }} >
                             <div id="progress_content" class="content">
-                                <h3>Your Progress</h3>
+                                <h3>Your Progress: </h3><span> This section shows your progress between RiskCurb and your organization. </span>
+                                <p>We will generate risks based on your organization information you answered from our RiskCurb Bot.</p>
                             </div>
                             <div id="context_content" style="display: none;" class="content">
                                 <h1>Context Content</h1>

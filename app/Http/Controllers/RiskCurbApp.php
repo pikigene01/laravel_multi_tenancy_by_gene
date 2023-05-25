@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RiskCurb;
 use App\Models\ApiKeys;
+use App\Models\RiskCurbGeneratedContent;
+use App\Models\RiskCurbPrompts;
 use OpenAI\Client;
 
 class RiskCurbApp extends Controller
@@ -59,6 +61,78 @@ class RiskCurbApp extends Controller
         return view('admin.riskcurb.apiKeys', [
             'openAi'=>$openAi
         ]);
+        //
+    }
+    public function adminPrompts(Request $request)
+    {
+        $section = $request->section;
+        $prompt = "";
+        $isNew = true;
+        $promptObject = RiskCurbPrompts::where('section','context')->first();
+
+        if($promptObject){
+            $prompt = $promptObject->prompt;
+            $isNew = false;
+
+        }else{
+            $prompt = '';
+            $isNew = true;
+
+        }
+        return view('admin.riskcurb.riskcurbprompts', [
+            'prompt'=>$prompt,
+            'isNew'=> $isNew,
+        ]);
+        //
+    }
+    public function adminpromptsSave(Request $request)
+    {
+        $section = $request->section;
+        $prompt = $request->prompt;
+        $isNew = true;
+        $promptObject = RiskCurbPrompts::where('section',$section)->first();
+
+        if($promptObject){
+            $updatedPrompt = RiskCurbPrompts::where('section',$section)->update(array('prompt'=> $prompt));
+            $isNew = false;
+
+        }else{
+           $newPrompt = new RiskCurbPrompts();
+           $newPrompt->section = $section;
+           $newPrompt->prompt = $prompt;
+           $newPrompt->save();
+           $isNew = true;
+        }
+
+        return view('admin.riskcurb.riskcurbprompts', [
+            'prompt'=>$prompt,
+            'isNew'=> $isNew,
+            'section' => $section,
+            'success' => __('Prompt Created successfully.')
+        ])->with('success', __('Prompt Created successfully.'));
+        return redirect()->back()->with('success', __('Prompt Created successfully.'));
+
+    }
+    public function adminPromptsApi(Request $request)
+    {
+        $section = $request->data['section'];
+
+        $prompt = "";
+        $isNew = true;
+
+        $promptObject = RiskCurbPrompts::where('section',$section)->first();
+
+        if($promptObject){
+            $prompt = $promptObject->prompt;
+            $isNew = false;
+
+        }else{
+            $prompt = '';
+            $isNew = true;
+
+        }
+
+        return json_encode(array('status'=> 200, 'prompt'=> $prompt, 'section'=> $section, 'isNew'=> $isNew));
         //
     }
 
