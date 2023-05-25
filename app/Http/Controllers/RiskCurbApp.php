@@ -87,6 +87,12 @@ class RiskCurbApp extends Controller
         //
     }
 
+   public function strReplaceAssoc(array $replace, $subject) {
+
+        return str_replace(array_keys($replace), array_values($replace), $subject);
+
+     }
+
     public function adminPromptsApiGenerate(Request $request)
     {
         $section = $request->data['section'];
@@ -121,20 +127,25 @@ class RiskCurbApp extends Controller
             $this->workers = $riskcurb_data->workers;
         }
 
-            $organization = $this->organization;
-            $organization_type = $this->organization_type;
-            $city = $this->city;
-            $state = $this->state;
-            $country = $this->country;
-            $assets = $this->assets;
-            $products = $this->products;
-            $services = $this->services;
-            $structure_type = $this->structure_type;
-            $components = $this->components;
-            $customer_types = $this->customer_types;
-            $stakeholders= $this->stakeholders;
-            $workers = $this->workers;
+            $replace = array(
 
+                '$organization' => $this->organization,
+                '$organization_type' => $this->organization_type,
+                '$city' => $this->city,
+                '$state' => $this->state,
+                '$country' => $this->country,
+                '$assets' => $this->assets,
+                '$products' => $this->products,
+                '$services' => $this->services,
+                '$structure_type' => $this->structure_type,
+                '$components' => $this->components,
+                '$customer_types' => $this->customer_types,
+                '$stakeholders' => $this->stakeholders,
+                '$workers' => $this->workers,
+
+                );
+
+            return json_encode($this->str_replace_assoc($replace,$prompt));
 
         if($promptObject){
             $content = $promptObject->content;
