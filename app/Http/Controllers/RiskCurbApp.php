@@ -145,7 +145,7 @@ class RiskCurbApp extends Controller
 
                 );
 
-            return json_encode($this->strReplaceAssoc($replace,$prompt));
+                return json_encode($this->strReplaceAssoc($replace,$prompt));
 
         if($promptObject){
             $content = $promptObject->content;
@@ -153,9 +153,7 @@ class RiskCurbApp extends Controller
 
         }else{
             $isNew = true;
-            $content = $this->parsePrompt($prompt);
-
-
+            $content = $this->parsePrompt($this->strReplaceAssoc($replace,$prompt));
         }
 
         return json_encode(array('status'=> 200, 'content'=> $content, 'section'=> $section, 'isNew'=> $isNew));

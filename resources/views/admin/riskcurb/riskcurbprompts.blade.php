@@ -16,7 +16,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>{{ __('Admin Create Prompts Per Section') }}</h5>
-                            <p><span class="text-primary">Variables to add inside your prompt per section</span>: $organization, $organization_type, $city, $state, $country, $assets, $products, $services, $structure_type, $components, $customer_types, $stakeholders && $workers.</p>
+                            <p><span class="text-primary">Variables to add inside your prompt per section</span>: $organization, $type, $city, $state, $country, $assets, $products, $services, $structure_type, $components, $customer_types, $stakeholders && $workers.</p>
                         </div>
                         <div class="card-body">
                             {!! Form::open([
