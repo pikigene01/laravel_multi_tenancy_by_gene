@@ -18,6 +18,19 @@ class RiskCurbApp extends Controller
      */
     public $tenant_id;
     public $step;
+    public $organization = "";
+    public $organization_type = "";
+    public $city = "";
+    public $state = "";
+    public $country = "";
+    public $assets = "";
+    public $products = "";
+    public $services = "";
+    public $structure_type = "";
+    public $components = "";
+    public $customer_types = "";
+    public $stakeholders= "";
+    public $workers = "";
     public function __construct()
     {
           $this->tenant_id = "1";
@@ -29,11 +42,38 @@ class RiskCurbApp extends Controller
       $content = "";
       $title = "";
 
-        return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title]);
+        return view('admin.riskcurb.dashboard', ['content'=>$content ,'title'=> $title]);
         //
     }
+    public function parsePrompt($prompt = ""){
+        $openAi = ApiKeys::where('name','openAi')->get();
+
+        if($openAi->count() > 0){
+          $openAi = ApiKeys::where('name','openAi')->first();
+          $openAi = $openAi->apikey;
+        }else{
+         $openAi = "";
+        }
+
+        $client = \OpenAi::client($openAi);
+
+        $result = $client->completions()->create([
+            "model" => "text-davinci-003",
+            "temperature" => 0.7,
+            "top_p" => 1,
+            "frequency_penalty" => 0,
+            "presence_penalty" => 0,
+            'max_tokens' => 600,
+            'prompt' => sprintf('Write article about: %s', $prompt),
+        ]);
+
+        $content = trim($result['choices'][0]['text']);
+        return $content;
+    }
+
     public function indexFramework()
     {
+
       $content = "No created framework for now!!!";
       $title = "";
       $data = RiskCurb::where('tenant_id', $this->tenant_id)->first();
@@ -44,6 +84,70 @@ class RiskCurbApp extends Controller
       }
 
         return view('admin.riskcurb.framework', ["content"=>$content ,"title"=> $title, "step"=>$this->step,"data"=>$data]);
+        //
+    }
+
+    public function adminPromptsApiGenerate(Request $request)
+    {
+        $section = $request->data['section'];
+
+        $prompt = "";
+        $isNew = true;
+        $content = "";
+
+        $promptObject = RiskCurbGeneratedContent::where('section',$section)->where('tenant_id', $this->tenant_id)->first();
+
+        $updatepromptState = RiskCurbPrompts::where('section','context')->first();
+
+        if($updatepromptState){
+            $prompt = $updatepromptState->prompt;
+        }//this is for getting prompt for loaded state section
+
+        $riskcurb_data = RiskCurb::where('tenant_id', $this->tenant_id)->first();//then we get organization information and update function state
+
+        if($riskcurb_data){
+            $this->organization = $riskcurb_data->organization;
+            $this->organization_type = $riskcurb_data->organization_type;
+            $this->city = $riskcurb_data->city;
+            $this->state = $riskcurb_data->state;
+            $this->country = $riskcurb_data->country;
+            $this->assets = $riskcurb_data->assets;
+            $this->products = $riskcurb_data->products;
+            $this->services = $riskcurb_data->services;
+            $this->structure_type = $riskcurb_data->structure_type;
+            $this->components = $riskcurb_data->components;
+            $this->customer_types = $riskcurb_data->customer_types;
+            $this->stakeholders= $riskcurb_data->stakeholders;
+            $this->workers = $riskcurb_data->workers;
+        }
+
+            $organization = $this->organization;
+            $organization_type = $this->organization_type;
+            $city = $this->city;
+            $state = $this->state;
+            $country = $this->country;
+            $assets = $this->assets;
+            $products = $this->products;
+            $services = $this->services;
+            $structure_type = $this->structure_type;
+            $components = $this->components;
+            $customer_types = $this->customer_types;
+            $stakeholders= $this->stakeholders;
+            $workers = $this->workers;
+
+
+        if($promptObject){
+            $content = $promptObject->content;
+            $isNew = false;
+
+        }else{
+            $isNew = true;
+            $content = $this->parsePrompt($prompt);
+
+
+        }
+
+        return json_encode(array('status'=> 200, 'content'=> $content, 'section'=> $section, 'isNew'=> $isNew));
         //
     }
     public function indexReports()
@@ -136,6 +240,7 @@ class RiskCurbApp extends Controller
         //
     }
 
+
     public function apiKeysSave(Request $request)
     {
         $openAi = ApiKeys::where('name','openAi')->get();
@@ -170,6 +275,7 @@ class RiskCurbApp extends Controller
             return;
         }
         $step = "1";
+        $content = "";
 
 
 
@@ -177,38 +283,15 @@ class RiskCurbApp extends Controller
 
         // $client = \OpenAI::client(env('OPENAI_API_KEY'));
 
-        $result = $this->parsePrompt($title);
+        // $result = $this->parsePrompt($title);
 
-        $content = trim($result['choices'][0]['text']);
+        // $content = trim($result['choices'][0]['text']);
 
         return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title, "step"=>$step]);
 
     }
 
-    public function parsePrompt($prompt = ""){
-        $openAi = ApiKeys::where('name','openAi')->get();
 
-        if($openAi->count() > 0){
-          $openAi = ApiKeys::where('name','openAi')->first();
-          $openAi = $openAi->apikey;
-        }else{
-         $openAi = "";
-        }
-
-        $client = \OpenAi::client($openAi);
-
-        $result = $client->completions()->create([
-            "model" => "text-davinci-003",
-            "temperature" => 0.7,
-            "top_p" => 1,
-            "frequency_penalty" => 0,
-            "presence_penalty" => 0,
-            'max_tokens' => 600,
-            'prompt' => sprintf('Write article about: %s', $prompt),
-        ]);
-
-        return $result;
-    }
     public function createFramework(Request $request)
     {
         // dd($request);

@@ -174,7 +174,7 @@
                         <div class="form-group" style={{ $step == '4' ? '' : 'display:none;' }}>
                             {{ Form::label('assets', __('Assets'), ['class' => 'form-label']) }}
 
-                            {!! Form::text(
+                            {!! Form::textarea(
                                 'assets',
                                 Utility::check_null($data ? $data->assets : ''),
 
@@ -186,7 +186,7 @@
                         <div class="form-group" style={{ $step == '5' ? '' : 'display:none;' }}>
                             {{ Form::label('products', __('Products'), ['class' => 'form-label']) }}
 
-                            {!! Form::text(
+                            {!! Form::textarea(
                                 'products',
                                 Utility::check_null($data ? $data->products : ''),
 
@@ -199,7 +199,7 @@
                         <div class="form-group" style={{ $step == '6' ? '' : 'display:none;' }}>
                             {{ Form::label('services', __('Services'), ['class' => 'form-label']) }}
 
-                            {!! Form::text(
+                            {!! Form::textarea(
                                 'services',
                                 Utility::check_null($data ? $data->services : ''),
 
@@ -211,7 +211,7 @@
                         <div class="form-group" style={{ $step == '7' ? '' : 'display:none;' }}>
                             {{ Form::label('structure_type', __('Structure type'), ['class' => 'form-label']) }}
 
-                            {!! Form::text(
+                            {!! Form::textarea(
                                 'structure_type',
                                 Utility::check_null($data ? $data->structure_type : ''),
 
@@ -224,7 +224,7 @@
                         <div class="form-group" style={{ $step == '8' ? '' : 'display:none;' }}>
                             {{ Form::label('components', __('Components'), ['class' => 'form-label']) }}
 
-                            {!! Form::text(
+                            {!! Form::textarea(
                                 'components',
                                 Utility::check_null($data ? $data->components : ''),
 
@@ -237,7 +237,7 @@
                         <div class="form-group" style={{ $step == '9' ? '' : 'display:none;' }}>
                             {{ Form::label('customer_types', __('List Customer types'), ['class' => 'form-label']) }}
 
-                            {!! Form::text(
+                            {!! Form::textarea(
                                 'customer_types',
                                 Utility::check_null($data ? $data->customer_types : ''),
 
@@ -250,7 +250,7 @@
                         <div class={{ 'form-group' }} style={{ $step == '10' ? '' : 'display:none;' }}>
                             {{ Form::label('stakeholders', __('Stakeholders'), ['class' => 'form-label']) }}
 
-                            {!! Form::text(
+                            {!! Form::textarea(
                                 'stakeholders',
                                 Utility::check_null($data ? $data->stakeholders : ''),
 
@@ -262,7 +262,7 @@
                         <div class="form-group" style={{ $step == '11' ? '' : 'display:none;' }}>
                             {{ Form::label('workers', __('Workers'), ['class' => 'form-label']) }}
 
-                            {!! Form::text(
+                            {!! Form::textarea(
                                 'workers',
                                 Utility::check_null($data ? $data->workers : '0'),
 
@@ -309,9 +309,25 @@
               var data_item = item.getAttribute('data-item');
                 content.style.display = "none";
                 document.querySelector(`#${data_item}_content`).style.display = "block";
-            });
+                if(data_item !== "progress"){
+                $(`#${data_item}_content`).html("Generating content please wait......");
 
+                $.ajax({
+                url: "{{ route('SectionGenerateData') }}",
+                type: 'POST',
+                data: {
+                    data: {section: data_item},
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    let response = JSON.parse(data);
+                        $(`#${data_item}_content`).html(response.content);
+                },
+                error: function(data) {}
+            });
         }
-    })
+            });
+        }
+    });
     </script>
 @endpush

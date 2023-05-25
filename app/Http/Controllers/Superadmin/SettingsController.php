@@ -439,7 +439,7 @@ class SettingsController extends Controller
             try {
                 Mail::to($request->email)->send(new TestMail());
             } catch (\Exception $e) {
-                dd($e->getMessage());
+                // dd($e->getMessage());
                 return redirect()->back()->with('errors', $e->getMessage());
             }
         }
