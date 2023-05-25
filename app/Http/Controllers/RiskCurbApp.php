@@ -130,7 +130,7 @@ class RiskCurbApp extends Controller
             $replace = array(
 
                 '$organization' => $this->organization,
-                '$organization_type' => $this->organization_type,
+                '$type' => $this->organization_type,
                 '$city' => $this->city,
                 '$state' => $this->state,
                 '$country' => $this->country,
