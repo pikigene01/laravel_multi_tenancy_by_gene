@@ -64,7 +64,7 @@ Route::get('/riskcurbprompts', [RiskCurbApp::class, 'adminPrompts'])->name('Admi
 Route::post('/riskcurbprompts/save', [RiskCurbApp::class, 'adminpromptsSave'])->name('AdminpromptsSave')->middleware(['auth', 'xss']);
 Route::post('/riskcurbprompts/api', [RiskCurbApp::class, 'adminPromptsApi'])->name('AdminpromptsApi')->middleware(['auth', 'xss']);
 Route::post('/riskcurbprompts/api/generate', [RiskCurbApp::class, 'adminPromptsApiGenerate'])->name('SectionGenerateData')->middleware(['auth', 'xss']);
-Route::get('/riskcurbKeys/Cancel', [RiskCurbApp::class, 'apiKeysRemove'])->name('riskcurbKeysCancel')->middleware(['auth', 'xss']);
+Route::get('/framework/Cancel', [RiskCurbApp::class, 'apiKeysRemove'])->name('riskcurbKeysCancel')->middleware(['auth', 'xss']);
 Route::post('/riskcurbKeys', [RiskCurbApp::class, 'apiKeysSave'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
 Route::post('/risks/generate', [RiskCurbApp::class, 'create'])->name('risks.generate')->middleware(['auth', 'xss']);
 

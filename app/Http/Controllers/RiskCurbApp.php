@@ -100,6 +100,7 @@ class RiskCurbApp extends Controller
         $prompt = "";
         $isNew = true;
         $content = "";
+        $steps = 1;
 
         $promptObject = RiskCurbGeneratedContent::where('section',$section)->where('tenant_id', $this->tenant_id)->first();
 
@@ -125,6 +126,7 @@ class RiskCurbApp extends Controller
             $this->customer_types = $riskcurb_data->customer_types;
             $this->stakeholders= $riskcurb_data->stakeholders;
             $this->workers = $riskcurb_data->workers;
+            $steps = $riskcurb_data->steps;
         }
 
             $replace = array(
@@ -146,15 +148,18 @@ class RiskCurbApp extends Controller
                 );
 
         // return json_encode($this->strReplaceAssoc($replace,$prompt)); this response was  for testing getting variable names
+        if($steps > 7){
+            if($promptObject){
+                $content = $promptObject->content;
+                $isNew = false;
 
-        if($promptObject){
-            $content = $promptObject->content;
-            $isNew = false;
-
+            }else{
+                $isNew = true;
+                $content = $this->parsePrompt($this->strReplaceAssoc($replace,$prompt));
+            }
         }else{
-            $isNew = true;
-            $content = $this->parsePrompt($this->strReplaceAssoc($replace,$prompt));
-        }
+           $content = "Please answer given questions from Risk Bot from your right panel to generate content from $section (section).";
+        }//end else achecking if current organization is capable to generate ai from sections
 
         return json_encode(array('status'=> 200, 'content'=> $content, 'section'=> $section, 'isNew'=> $isNew));
         //
@@ -343,9 +348,9 @@ class RiskCurbApp extends Controller
         }
 
       if($this->step >= "12"){
-        $result = $this->parsePrompt("Risk likely to face this organisation with stated information");
+        // $result = $this->parsePrompt("Risk likely to face this organisation with stated information"); this was for generating ai options to give to the next Risk Bot Questions
 
-        $content = $result;
+        $content = "Awesome you finished Risk Bot Steps!!!!";
       }
 
         return view('admin.riskcurb.framework', ["content"=>$content ,"title"=> $title, "step"=>$this->step,"data"=>$riskcurb_step]);
@@ -363,6 +368,7 @@ class RiskCurbApp extends Controller
         }else{
 
         }
+
         return view('admin.riskcurb.framework', [
             'step'=>'1',"data"=>$riskcurb_step,
             "content"=>$content ,"title"=> $title
