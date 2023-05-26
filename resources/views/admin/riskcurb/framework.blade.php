@@ -24,151 +24,177 @@
             background: #ccc;
             padding: 10px 20px
         }
-        .risk-menus{
+
+        .risk-menus {
             display: flex;
             flex-direction: column;
         }
-        .risk-menus li{
+
+        .risk-menus li {
             padding: 10px 0px;
             border-bottom: 2px solid #ccc;
             cursor: pointer;
         }
-        .content{
+
+        .content {
             height: 400px;
             overflow: hidden scroll;
         }
 
         body {
-  margin: 30px;
-  font-family: sans-serif;
-  }
+            margin: 30px;
+            font-family: sans-serif;
+        }
 
-  .progressWrapper{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-  }
-#fontSizeWrapper { font-size: 16px; }
+        .progressWrapper {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
 
-#fontSize {
-  width: 100px;
-  font-size: 1em;
-  }
+        #fontSizeWrapper {
+            font-size: 16px;
+        }
 
-/* ————————————————————–
-  Tree core styles
-*/
-.tree { margin: 1em; }
+        #fontSize {
+            width: 100px;
+            font-size: 1em;
+        }
 
-.tree input {
-  position: absolute;
-  clip: rect(0, 0, 0, 0);
-  }
+        /* ————————————————————–
+      Tree core styles
+    */
+        .tree {
+            margin: 1em;
+        }
 
-.tree input ~ ul { display: none; }
+        .tree input {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+        }
 
-.tree input:checked ~ ul { display: block; }
+        .tree input~ul {
+            display: none;
+        }
 
-/* ————————————————————–
-  Tree rows
-*/
-.tree li {
-  line-height: 1.2;
-  position: relative;
-  padding: 0 0 1em 1em;
-  }
+        .tree input:checked~ul {
+            display: block;
+        }
 
-.tree ul li { padding: 1em 0 0 1em; }
+        /* ————————————————————–
+      Tree rows
+    */
+        .tree li {
+            line-height: 1.2;
+            position: relative;
+            padding: 0 0 1em 1em;
+        }
 
-.tree > li:last-child { padding-bottom: 0; }
+        .tree ul li {
+            padding: 1em 0 0 1em;
+        }
 
-/* ————————————————————–
-  Tree labels
-*/
-.tree_label {
-  position: relative;
-  display: inline-block;
-  background: #fff;
-  }
+        .tree>li:last-child {
+            padding-bottom: 0;
+        }
 
-label.tree_label { cursor: pointer; }
+        /* ————————————————————–
+      Tree labels
+    */
+        .tree_label {
+            position: relative;
+            display: inline-block;
+            background: #fff;
+        }
 
-label.tree_label:hover { color: #666; }
+        label.tree_label {
+            cursor: pointer;
+        }
 
-/* ————————————————————–
-  Tree expanded icon
-*/
-label.tree_label:before {
-  background: #000;
-  color: #fff;
-  position: relative;
-  z-index: 1;
-  float: left;
-  margin: 0 1em 0 -2em;
-  width: 1em;
-  height: 1em;
-  border-radius: 1em;
-  content: '+';
-  text-align: center;
-  line-height: .9em;
-  }
+        label.tree_label:hover {
+            color: #666;
+        }
 
-:checked ~ label.tree_label:before { content: '–'; }
+        /* ————————————————————–
+      Tree expanded icon
+    */
+        label.tree_label:before {
+            background: #000;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            float: left;
+            margin: 0 1em 0 -2em;
+            width: 1em;
+            height: 1em;
+            border-radius: 1em;
+            content: '+';
+            text-align: center;
+            line-height: .9em;
+        }
 
-/* ————————————————————–
-  Tree branches
-*/
-.tree li:before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -.5em;
-  display: block;
-  width: 0;
-  border-left: 1px solid #777;
-  content: "";
-  }
+        :checked~label.tree_label:before {
+            content: '–';
+        }
 
-.tree_label:after {
-  position: absolute;
-  top: 0;
-  left: -1.5em;
-  display: block;
-  height: 0.5em;
-  width: 1em;
-  border-bottom: 1px solid #777;
-  border-left: 1px solid #777;
-  border-radius: 0 0 0 .3em;
-  content: '';
-  }
+        /* ————————————————————–
+      Tree branches
+    */
+        .tree li:before {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -.5em;
+            display: block;
+            width: 0;
+            border-left: 1px solid #777;
+            content: "";
+        }
 
-label.tree_label:after { border-bottom: 0; }
+        .tree_label:after {
+            position: absolute;
+            top: 0;
+            left: -1.5em;
+            display: block;
+            height: 0.5em;
+            width: 1em;
+            border-bottom: 1px solid #777;
+            border-left: 1px solid #777;
+            border-radius: 0 0 0 .3em;
+            content: '';
+        }
 
-:checked ~ label.tree_label:after {
-  border-radius: 0 .3em 0 0;
-  border-top: 1px solid #777;
-  border-right: 1px solid #777;
-  border-bottom: 0;
-  border-left: 0;
-  bottom: 0;
-  top: 0.5em;
-  height: auto;
-  }
+        label.tree_label:after {
+            border-bottom: 0;
+        }
 
-.tree li:last-child:before {
-  height: 1em;
-  bottom: auto;
-  }
+        :checked~label.tree_label:after {
+            border-radius: 0 .3em 0 0;
+            border-top: 1px solid #777;
+            border-right: 1px solid #777;
+            border-bottom: 0;
+            border-left: 0;
+            bottom: 0;
+            top: 0.5em;
+            height: auto;
+        }
 
-.tree > li:last-child:before { display: none; }
+        .tree li:last-child:before {
+            height: 1em;
+            bottom: auto;
+        }
 
-.tree_custom {
-  display: block;
-  background: #eee;
-  padding: 1em;
-  border-radius: 0.3em;
-}
+        .tree>li:last-child:before {
+            display: none;
+        }
+
+        .tree_custom {
+            display: block;
+            background: #eee;
+            padding: 1em;
+            border-radius: 0.3em;
+        }
     </style>
 @endpush
 
@@ -198,166 +224,195 @@ label.tree_label:after { border-bottom: 0; }
                             </div>
                         </div>
 
-                        <div class="middle_content"  style={{ request()->is('*framework*') ? "display:block;": "display:none;" }} >
+                        <div class="middle_content"
+                            style={{ request()->is('*framework*') ? 'display:block;' : 'display:none;' }}>
                             <div id="progress_content" class="content">
-                                <h3>Your Progress: </h3><span> This section shows your progress between RiskCurb and your organization. </span>
-                                <p>We will generate risks based on your organization information you answered from our RiskCurb Bot.</p>
+                                <h3>Your Progress: </h3><span> This section shows your progress between RiskCurb and your
+                                    organization. </span>
+                                <p>We will generate risks based on your organization information you answered from our
+                                    RiskCurb Bot.</p>
 
                                 <div class="progressWrapper">
-                                {{-- <div id="fontSizeWrapper">
+                                    {{-- <div id="fontSizeWrapper">
                                     <label for="fontSize">Font size</label>
                                     <input type="range" value="1" id="fontSize" step="0.5" min="0.5" max="5" />
                                   </div> --}}
 
-                                  <ul class="tree">
-                                    <li>
-                                      <input type="checkbox" checked="checked" id="c1" />
-                                      <label class="tree_label" for="c1">Basic Progress</label>
-                                      <ul>
+                                    <ul class="tree">
                                         <li>
-                                          {{-- <input type="checkbox" checked="checked" id="c2" /> --}}
-                                          <input type="checkbox" id="c2" />
-                                          <label for="c2" class="tree_label">Level 1</label>
-                                          <ul>
-                                            <li><span class="tree_label">Organization: {{Utility::check_null($data ? $data->organization : '')}}</span></li>
-                                            <li><span class="tree_label">Organization Type: {{Utility::check_null($data ? $data->organization_type : '')}}</span></li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <input type="checkbox" id="c3" />
-                                          <label for="c3" class="tree_label">Level 2: Location</label>
-                                          <ul>
-                                            <li><span class="tree_label">Country: {{Utility::check_null($data ? $data->country : '')}}</span></li>
-                                            <li><span class="tree_label">City: {{Utility::check_null($data ? $data->city : '')}}</span></li>
-                                            <li><span class="tree_label">State: {{Utility::check_null($data ? $data->state : '')}}</span></li>
-                                            <li>
-                                              <input type="checkbox" id="c4" />
-                                              <label for="c4" class="tree_label">Info..</label>
-                                              <ul>
-                                                <li><span class="tree_label">... </span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
+                                            <input type="checkbox" checked="checked" id="c1" />
+                                            <label class="tree_label" for="c1">Basic Progress</label>
+                                            <ul>
+                                                <li>
+                                                    {{-- <input type="checkbox" checked="checked" id="c2" /> --}}
+                                                    <input type="checkbox" id="c2" />
+                                                    <label for="c2" class="tree_label">Level 1</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Organization:
+                                                                {{ Utility::check_null($data ? $data->organization : '') }}</span>
+                                                        </li>
+                                                        <li><span class="tree_label">Organization Type:
+                                                                {{ Utility::check_null($data ? $data->organization_type : '') }}</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="c3" />
+                                                    <label for="c3" class="tree_label">Level 2: Location</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Country:
+                                                                {{ Utility::check_null($data ? $data->country : '') }}</span>
+                                                        </li>
+                                                        <li><span class="tree_label">City:
+                                                                {{ Utility::check_null($data ? $data->city : '') }}</span>
+                                                        </li>
+                                                        <li><span class="tree_label">State:
+                                                                {{ Utility::check_null($data ? $data->state : '') }}</span>
+                                                        </li>
+                                                        <li>
+                                                            <input type="checkbox" id="c4" />
+                                                            <label for="c4" class="tree_label">Info..</label>
+                                                            <ul>
+                                                                <li><span class="tree_label">... </span></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+
+                                                <li>
+                                                    <input type="checkbox" id="c5" />
+                                                    <label for="c5" class="tree_label">Level 3</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Assets:
+                                                                {{ Utility::check_null($data ? $data->assets : '') }}</span>
+                                                        </li>
+
+                                                        <li>
+                                                            <input type="checkbox" id="c6" />
+                                                            <label for="c6" class="tree_label">Info</label>
+                                                            <ul>
+                                                                <li><span class="tree_label">....</span></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="c7" />
+                                                    <label for="c7" class="tree_label">Level 4</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Products: </span></li>
+                                                        <li>
+                                                            <input type="checkbox" id="c8" />
+                                                            <label for="c8" class="tree_label">Info</label>
+                                                            <ul>
+                                                                <li><span
+                                                                        class="tree_label">{{ Utility::check_null($data ? $data->products : '') }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="c9" />
+                                                    <label for="c9" class="tree_label">Level 5</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Services: </span></li>
+                                                        <li>
+                                                            <input type="checkbox" id="c10" />
+                                                            <label for="c10" class="tree_label">Info</label>
+                                                            <ul>
+                                                                <li><span
+                                                                        class="tree_label">{{ Utility::check_null($data ? $data->services : '') }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="c11" />
+                                                    <label for="c11" class="tree_label">Level 5</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Structure Type: </span></li>
+                                                        <li>
+                                                            <input type="checkbox" id="c12" />
+                                                            <label for="c12" class="tree_label">Info</label>
+                                                            <ul>
+                                                                <li><span
+                                                                        class="tree_label">{{ Utility::check_null($data ? $data->structure_type : '') }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="c13" />
+                                                    <label for="c13" class="tree_label">Level 6</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Components: </span></li>
+                                                        <li>
+                                                            <input type="checkbox" id="c14" />
+                                                            <label for="c14" class="tree_label">Info</label>
+                                                            <ul>
+                                                                <li><span
+                                                                        class="tree_label">{{ Utility::check_null($data ? $data->components : '') }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="c15" />
+                                                    <label for="c15" class="tree_label">Level 7</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Customer Types: </span></li>
+                                                        <li>
+                                                            <input type="checkbox" id="c16" />
+                                                            <label for="c16" class="tree_label">Info</label>
+                                                            <ul>
+                                                                <li><span
+                                                                        class="tree_label">{{ Utility::check_null($data ? $data->customer_types : '') }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="c17" />
+                                                    <label for="c17" class="tree_label">Level 8</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Stakeholders: </span></li>
+                                                        <li>
+                                                            <input type="checkbox" id="c18" />
+                                                            <label for="c18" class="tree_label">Info</label>
+                                                            <ul>
+                                                                <li><span
+                                                                        class="tree_label">{{ Utility::check_null($data ? $data->stakeholders : '') }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <input type="checkbox" id="c19" />
+                                                    <label for="c19" class="tree_label">Level 9</label>
+                                                    <ul>
+                                                        <li><span class="tree_label">Workers: </span></li>
+                                                        <li>
+                                                            <input type="checkbox" id="c20" />
+                                                            <label for="c20" class="tree_label">Info</label>
+                                                            <ul>
+                                                                <li><span
+                                                                        class="tree_label">{{ Utility::check_null($data ? $data->workers : '') }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
                                         </li>
 
-                                        <li>
-                                          <input type="checkbox" id="c5" />
-                                          <label for="c5" class="tree_label">Level 3</label>
-                                          <ul>
-                                            <li><span class="tree_label">Assets: {{Utility::check_null($data ? $data->assets : '')}}</span></li>
 
-                                            <li>
-                                              <input type="checkbox" id="c6" />
-                                              <label for="c6" class="tree_label">Info</label>
-                                              <ul>
-                                                <li><span class="tree_label">....</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <input type="checkbox" id="c7" />
-                                          <label for="c7" class="tree_label">Level 4</label>
-                                          <ul>
-                                            <li><span class="tree_label">Products: </span></li>
-                                            <li>
-                                              <input type="checkbox" id="c8" />
-                                              <label for="c8" class="tree_label">Info</label>
-                                              <ul>
-                                                <li><span class="tree_label">{{Utility::check_null($data ? $data->products : '')}}</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <input type="checkbox" id="c9" />
-                                          <label for="c9" class="tree_label">Level 5</label>
-                                          <ul>
-                                            <li><span class="tree_label">Services: </span></li>
-                                            <li>
-                                              <input type="checkbox" id="c10" />
-                                              <label for="c10" class="tree_label">Info</label>
-                                              <ul>
-                                                <li><span class="tree_label">{{Utility::check_null($data ? $data->services : '')}}</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <input type="checkbox" id="c11" />
-                                          <label for="c11" class="tree_label">Level 5</label>
-                                          <ul>
-                                            <li><span class="tree_label">Structure Type: </span></li>
-                                            <li>
-                                              <input type="checkbox" id="c12" />
-                                              <label for="c12" class="tree_label">Info</label>
-                                              <ul>
-                                                <li><span class="tree_label">{{Utility::check_null($data ? $data->structure_type : '')}}</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <input type="checkbox" id="c13" />
-                                          <label for="c13" class="tree_label">Level 6</label>
-                                          <ul>
-                                            <li><span class="tree_label">Components: </span></li>
-                                            <li>
-                                              <input type="checkbox" id="c14" />
-                                              <label for="c14" class="tree_label">Info</label>
-                                              <ul>
-                                                <li><span class="tree_label">{{Utility::check_null($data ? $data->components : '')}}</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <input type="checkbox" id="c15" />
-                                          <label for="c15" class="tree_label">Level 7</label>
-                                          <ul>
-                                            <li><span class="tree_label">Customer Types: </span></li>
-                                            <li>
-                                              <input type="checkbox" id="c16" />
-                                              <label for="c16" class="tree_label">Info</label>
-                                              <ul>
-                                                <li><span class="tree_label">{{Utility::check_null($data ? $data->customer_types : '')}}</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <input type="checkbox" id="c17" />
-                                          <label for="c17" class="tree_label">Level 8</label>
-                                          <ul>
-                                            <li><span class="tree_label">Stakeholders: </span></li>
-                                            <li>
-                                              <input type="checkbox" id="c18" />
-                                              <label for="c18" class="tree_label">Info</label>
-                                              <ul>
-                                                <li><span class="tree_label">{{Utility::check_null($data ? $data->stakeholders : '')}}</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                        <li>
-                                          <input type="checkbox" id="c19" />
-                                          <label for="c19" class="tree_label">Level 9</label>
-                                          <ul>
-                                            <li><span class="tree_label">Workers: </span></li>
-                                            <li>
-                                              <input type="checkbox" id="c20" />
-                                              <label for="c20" class="tree_label">Info</label>
-                                              <ul>
-                                                <li><span class="tree_label">{{Utility::check_null($data ? $data->workers : '')}}</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                      </ul>
-                                    </li>
-
-
-                                    {{-- <li>
+                                        {{-- <li>
                                       <input type="checkbox" id="c5" />
                                       <label class="tree_label" for="c5">Level 0</label>
                                       <ul>
@@ -384,7 +439,7 @@ label.tree_label:after { border-bottom: 0; }
                                         </li>
                                       </ul>
                                     </li> --}}
-                                  </ul>
+                                    </ul>
                                 </div>
 
                             </div>
@@ -407,14 +462,17 @@ label.tree_label:after { border-bottom: 0; }
 
                         </div>
 
-                        <div class="middle_content"  style={{ request()->is('*documents*') ? "display:block;": "display:none;" }} >
-                         <h1>Documents Coming Soon!!!</h1>
+                        <div class="middle_content"
+                            style={{ request()->is('*documents*') ? 'display:block;' : 'display:none;' }}>
+                            <h1>Documents Coming Soon!!!</h1>
                         </div>
-                        <div class="middle_content"  style={{ request()->is('*insurance*') ? "display:block;": "display:none;" }} >
-                         <h1>Insurance Claims Coming Soon!!!</h1>
+                        <div class="middle_content"
+                            style={{ request()->is('*insurance*') ? 'display:block;' : 'display:none;' }}>
+                            <h1>Insurance Claims Coming Soon!!!</h1>
                         </div>
-                        <div class="middle_content"  style={{ request()->is('*reports*') ? "display:block;": "display:none;" }} >
-                         <h1>Reports Coming Soon!!!</h1>
+                        <div class="middle_content"
+                            style={{ request()->is('*reports*') ? 'display:block;' : 'display:none;' }}>
+                            <h1>Reports Coming Soon!!!</h1>
                         </div>
                     </div>
                 </div>
@@ -618,71 +676,83 @@ label.tree_label:after { border-bottom: 0; }
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/marked" defer></script>
     <script>
-    const items = document.querySelectorAll('.risk-item');
+        const items = document.querySelectorAll('.risk-item');
 
-    items.forEach((item)=>{
-        item.onclick = (e)=>{
-            document.querySelectorAll('.content').forEach((content)=>{
-              var data_item = item.getAttribute('data-item');
-                content.style.display = "none";
-                document.querySelector(`#${data_item}_content`).style.display = "block";
-                if(data_item !== "progress"){
-                $(`#${data_item}_content`).html("Generating content please wait......");
+        items.forEach((item) => {
+            item.onclick = (e) => {
+                document.querySelectorAll('.content').forEach((content) => {
+                    var data_item = item.getAttribute('data-item');
+                    content.style.display = "none";
+                    document.querySelector(`#${data_item}_content`).style.display = "block";
+                    if (data_item !== "progress") {
+                        $(`#${data_item}_content`).html("Generating content please wait......");
 
-                $.ajax({
-                url: "{{ route('SectionGenerateData') }}",
-                type: 'POST',
-                data: {
-                    data: {section: data_item},
-                    _token: $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    let response = JSON.parse(data);
-                        $(`#${data_item}_content`).html(response.content);
-                },
-                error: function(data) {}
-            });
+                        $.ajax({
+                            url: "{{ route('SectionGenerateData') }}",
+                            type: 'POST',
+                            data: {
+                                data: {
+                                    section: data_item
+                                },
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                let response = JSON.parse(data);
+                                $(`#${data_item}_content`).html(response.content);
+                            },
+                            error: function(data) {}
+                        });
+                    }
+                });
+            }
+        });
+
+        function isNumber(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
         }
-            });
+
+        function setFontSize(el) {
+            var fontSize = el.val();
+
+            if (isNumber(fontSize) && fontSize >= 0.5) {
+                $('body').css({
+                    fontSize: fontSize + 'em'
+                });
+            } else if (fontSize) {
+                el.val('1');
+                $('body').css({
+                    fontSize: '1em'
+                });
+            }
         }
-    });
 
-    function isNumber(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-    }
+        $(function() {
 
-function setFontSize(el) {
-    var fontSize = el.val();
+            $('#fontSize')
+                .bind('change', function() {
+                    setFontSize($(this));
+                })
+                .bind('keyup', function(e) {
+                    if (e.keyCode == 27) {
+                        $(this).val('1');
+                        $('body').css({
+                            fontSize: '1em'
+                        });
+                    } else {
+                        setFontSize($(this));
+                    }
+                });
 
-    if ( isNumber(fontSize) && fontSize >= 0.5 ) {
-      $('body').css({ fontSize: fontSize + 'em' });
-    } else if ( fontSize ) {
-      el.val('1');
-      $('body').css({ fontSize: '1em' });
-    }
-}
+            $(window)
+                .bind('keyup', function(e) {
+                    if (e.keyCode == 27) {
+                        $('#fontSize').val('1');
+                        $('body').css({
+                            fontSize: '1em'
+                        });
+                    }
+                });
 
-$(function() {
-
-  $('#fontSize')
-    .bind('change', function(){ setFontSize($(this)); })
-    .bind('keyup', function(e){
-      if (e.keyCode == 27) {
-        $(this).val('1');
-        $('body').css({ fontSize: '1em' });
-      } else {
-        setFontSize($(this));
-      }
-    });
-
-  $(window)
-    .bind('keyup', function(e){
-      if (e.keyCode == 27) {
-        $('#fontSize').val('1');
-        $('body').css({ fontSize: '1em' });
-      }
-    });
-
-});
+        });
     </script>
 @endpush
