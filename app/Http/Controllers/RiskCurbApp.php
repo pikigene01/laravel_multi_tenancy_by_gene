@@ -150,12 +150,19 @@ class RiskCurbApp extends Controller
         // return json_encode($this->strReplaceAssoc($replace,$prompt)); this response was  for testing getting variable names
         if($steps > 7){
             if($promptObject){
-                $content = $promptObject->content;
+                $content = $promptObject->ai_generated;
                 $isNew = false;
 
             }else{
                 $isNew = true;
                 $content = $this->parsePrompt($this->strReplaceAssoc($replace,$prompt));
+                if($content){
+                    $save_generated = new RiskCurbGeneratedContent();
+                    $save_generated->tenant_id = $this->tenant_id;
+                    $save_generated->section = $section;
+                    $save_generated->ai_generated = $content;
+                    $save_generated->save();
+                }
             }
         }else{
            $content = "Please answer given questions from Risk Bot from your right panel to generate content from $section (section).";
