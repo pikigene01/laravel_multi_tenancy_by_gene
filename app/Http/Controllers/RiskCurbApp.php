@@ -64,7 +64,7 @@ class RiskCurbApp extends Controller
             "frequency_penalty" => 0,
             "presence_penalty" => 0,
             'max_tokens' => 600,
-            'prompt' => sprintf('Write article about: %s', $prompt),
+            'prompt' => sprintf('%s', $prompt),
         ]);
 
         $content = trim($result['choices'][0]['text']);
