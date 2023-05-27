@@ -233,7 +233,7 @@
 <section class="risk-hero">
     <div class="risk-hero-top">
         <span class="hero-text"> This is </span>
-        <img src="{{ asset('images/arrow.png') }}" alt="icon" class="arrow-img-top" />
+        <img src="{{ asset('public/images/arrow.png') }}" alt="icon" class="arrow-img-top" />
 
     </div>
     <div class="risk-hero-middle hero-pink-title">
@@ -245,7 +245,7 @@
                 Get Started - It's Free
             </span></a>
 
-        <img src="{{ asset('images/arrow.png') }}" alt="icon" class="arrow-img-bottom" />
+        <img src="{{ asset('public/images/arrow.png') }}" alt="icon" class="arrow-img-bottom" />
     </div>
 
 </section>
