@@ -29,30 +29,31 @@ class RiskCurbApp extends Controller
     public $structure_type = "";
     public $components = "";
     public $customer_types = "";
-    public $stakeholders= "";
+    public $stakeholders = "";
     public $workers = "";
     public function __construct()
     {
-          $this->tenant_id = "1";
-          $this->step = "1";
+        $this->tenant_id = "1";
+        $this->step = "1";
     }
 
     public function index()
     {
-      $content = "";
-      $title = "";
+        $content = "";
+        $title = "";
 
-        return view('admin.riskcurb.dashboard', ['content'=>$content ,'title'=> $title]);
+        return view('admin.riskcurb.dashboard', ['content' => $content, 'title' => $title]);
         //
     }
-    public function parsePrompt($prompt = ""){
-        $openAi = ApiKeys::where('name','openAi')->get();
+    public function parsePrompt($prompt = "")
+    {
+        $openAi = ApiKeys::where('name', 'openAi')->get();
 
-        if($openAi->count() > 0){
-          $openAi = ApiKeys::where('name','openAi')->first();
-          $openAi = $openAi->apikey;
-        }else{
-         $openAi = "";
+        if ($openAi->count() > 0) {
+            $openAi = ApiKeys::where('name', 'openAi')->first();
+            $openAi = $openAi->apikey;
+        } else {
+            $openAi = "";
         }
 
         $client = \OpenAi::client($openAi);
@@ -74,24 +75,24 @@ class RiskCurbApp extends Controller
     public function indexFramework()
     {
 
-      $content = "No created framework for now!!!";
-      $title = "";
-      $data = RiskCurb::where('tenant_id', $this->tenant_id)->first();
-      if( $data){
-          $this->step =  $data->steps;
-      }else{
-          $this->step = 1;
-      }
+        $content = "No created framework for now!!!";
+        $title = "";
+        $data = RiskCurb::where('tenant_id', $this->tenant_id)->first();
+        if ($data) {
+            $this->step =  $data->steps;
+        } else {
+            $this->step = 1;
+        }
 
-        return view('admin.riskcurb.framework', ["content"=>$content ,"title"=> $title, "step"=>$this->step,"data"=>$data]);
+        return view('admin.riskcurb.framework', ["content" => $content, "title" => $title, "step" => $this->step, "data" => $data]);
         //
     }
 
-   public function strReplaceAssoc(array $replace, $subject) {
+    public function strReplaceAssoc(array $replace, $subject)
+    {
 
         return str_replace(array_keys($replace), array_values($replace), $subject);
-
-     }
+    }
 
     public function adminPromptsApiGenerate(Request $request)
     {
@@ -102,17 +103,17 @@ class RiskCurbApp extends Controller
         $content = "";
         $steps = 1;
 
-        $promptObject = RiskCurbGeneratedContent::where('section',$section)->where('tenant_id', $this->tenant_id)->first();
+        $promptObject = RiskCurbGeneratedContent::where('section', $section)->where('tenant_id', $this->tenant_id)->first();
 
-        $updatepromptState = RiskCurbPrompts::where('section','context')->first();
+        $updatepromptState = RiskCurbPrompts::where('section', 'context')->first();
 
-        if($updatepromptState){
+        if ($updatepromptState) {
             $prompt = $updatepromptState->prompt;
-        }//this is for getting prompt for loaded state section
+        } //this is for getting prompt for loaded state section
 
-        $riskcurb_data = RiskCurb::where('tenant_id', $this->tenant_id)->first();//then we get organization information and update function state
+        $riskcurb_data = RiskCurb::where('tenant_id', $this->tenant_id)->first(); //then we get organization information and update function state
 
-        if($riskcurb_data){
+        if ($riskcurb_data) {
             $this->organization = $riskcurb_data->organization;
             $this->organization_type = $riskcurb_data->organization_type;
             $this->city = $riskcurb_data->city;
@@ -124,39 +125,38 @@ class RiskCurbApp extends Controller
             $this->structure_type = $riskcurb_data->structure_type;
             $this->components = $riskcurb_data->components;
             $this->customer_types = $riskcurb_data->customer_types;
-            $this->stakeholders= $riskcurb_data->stakeholders;
+            $this->stakeholders = $riskcurb_data->stakeholders;
             $this->workers = $riskcurb_data->workers;
             $steps = $riskcurb_data->steps;
         }
 
-            $replace = array(
+        $replace = array(
 
-                '$organization' => $this->organization,
-                '$type' => $this->organization_type,
-                '$city' => $this->city,
-                '$state' => $this->state,
-                '$country' => $this->country,
-                '$assets' => $this->assets,
-                '$products' => $this->products,
-                '$services' => $this->services,
-                '$structure_type' => $this->structure_type,
-                '$components' => $this->components,
-                '$customer_types' => $this->customer_types,
-                '$stakeholders' => $this->stakeholders,
-                '$workers' => $this->workers,
+            '$organization' => $this->organization,
+            '$type' => $this->organization_type,
+            '$city' => $this->city,
+            '$state' => $this->state,
+            '$country' => $this->country,
+            '$assets' => $this->assets,
+            '$products' => $this->products,
+            '$services' => $this->services,
+            '$structure_type' => $this->structure_type,
+            '$components' => $this->components,
+            '$customer_types' => $this->customer_types,
+            '$stakeholders' => $this->stakeholders,
+            '$workers' => $this->workers,
 
-                );
+        );
 
         // return json_encode($this->strReplaceAssoc($replace,$prompt)); this response was  for testing getting variable names
-        if($steps > 7){
-            if($promptObject){
+        if ($steps > 7) {
+            if ($promptObject) {
                 $content = $promptObject->ai_generated;
                 $isNew = false;
-
-            }else{
+            } else {
                 $isNew = true;
-                $content = $this->parsePrompt($this->strReplaceAssoc($replace,$prompt));
-                if($content){
+                $content = $this->parsePrompt($this->strReplaceAssoc($replace, $prompt));
+                if ($content) {
                     $save_generated = new RiskCurbGeneratedContent();
                     $save_generated->tenant_id = $this->tenant_id;
                     $save_generated->section = $section;
@@ -164,27 +164,27 @@ class RiskCurbApp extends Controller
                     $save_generated->save();
                 }
             }
-        }else{
-           $content = "Please answer given questions from Risk Bot from your right panel to generate content from $section (section).";
-        }//end else achecking if current organization is capable to generate ai from sections
+        } else {
+            $content = "Please answer given questions from Risk Bot from your right panel to generate content from $section (section).";
+        } //end else achecking if current organization is capable to generate ai from sections
 
-        return json_encode(array('status'=> 200, 'content'=> $content, 'section'=> $section, 'isNew'=> $isNew));
+        return json_encode(array('status' => 200, 'content' => $content, 'section' => $section, 'isNew' => $isNew));
         //
     }
     public function indexReports()
     {
-      $content = "No Reports for now!!!";
-      $title = "";
+        $content = "No Reports for now!!!";
+        $title = "";
 
-        return view('admin.riskcurb.reports', ["content"=>$content ,"title"=> $title]);
+        return view('admin.riskcurb.reports', ["content" => $content, "title" => $title]);
         //
     }
     public function apiKeys()
     {
-        $openAi = ApiKeys::where('name','openAi')->first();
+        $openAi = ApiKeys::where('name', 'openAi')->first();
 
         return view('admin.riskcurb.apiKeys', [
-            'openAi'=>$openAi
+            'openAi' => $openAi
         ]);
         //
     }
@@ -193,20 +193,18 @@ class RiskCurbApp extends Controller
         $section = $request->section;
         $prompt = "";
         $isNew = true;
-        $promptObject = RiskCurbPrompts::where('section','context')->first();
+        $promptObject = RiskCurbPrompts::where('section', 'context')->first();
 
-        if($promptObject){
+        if ($promptObject) {
             $prompt = $promptObject->prompt;
             $isNew = false;
-
-        }else{
+        } else {
             $prompt = '';
             $isNew = true;
-
         }
         return view('admin.riskcurb.riskcurbprompts', [
-            'prompt'=>$prompt,
-            'isNew'=> $isNew,
+            'prompt' => $prompt,
+            'isNew' => $isNew,
         ]);
         //
     }
@@ -215,28 +213,26 @@ class RiskCurbApp extends Controller
         $section = $request->section;
         $prompt = $request->prompt;
         $isNew = true;
-        $promptObject = RiskCurbPrompts::where('section',$section)->first();
+        $promptObject = RiskCurbPrompts::where('section', $section)->first();
 
-        if($promptObject){
-            $updatedPrompt = RiskCurbPrompts::where('section',$section)->update(array('prompt'=> $prompt));
+        if ($promptObject) {
+            $updatedPrompt = RiskCurbPrompts::where('section', $section)->update(array('prompt' => $prompt));
             $isNew = false;
-
-        }else{
-           $newPrompt = new RiskCurbPrompts();
-           $newPrompt->section = $section;
-           $newPrompt->prompt = $prompt;
-           $newPrompt->save();
-           $isNew = true;
+        } else {
+            $newPrompt = new RiskCurbPrompts();
+            $newPrompt->section = $section;
+            $newPrompt->prompt = $prompt;
+            $newPrompt->save();
+            $isNew = true;
         }
 
         return view('admin.riskcurb.riskcurbprompts', [
-            'prompt'=>$prompt,
-            'isNew'=> $isNew,
+            'prompt' => $prompt,
+            'isNew' => $isNew,
             'section' => $section,
             'success' => __('Prompt Created successfully.')
         ])->with('success', __('Prompt Created successfully.'));
         return redirect()->back()->with('success', __('Prompt Created successfully.'));
-
     }
     public function adminPromptsApi(Request $request)
     {
@@ -245,41 +241,38 @@ class RiskCurbApp extends Controller
         $prompt = "";
         $isNew = true;
 
-        $promptObject = RiskCurbPrompts::where('section',$section)->first();
+        $promptObject = RiskCurbPrompts::where('section', $section)->first();
 
-        if($promptObject){
+        if ($promptObject) {
             $prompt = $promptObject->prompt;
             $isNew = false;
-
-        }else{
+        } else {
             $prompt = '';
             $isNew = true;
-
         }
 
-        return json_encode(array('status'=> 200, 'prompt'=> $prompt, 'section'=> $section, 'isNew'=> $isNew));
+        return json_encode(array('status' => 200, 'prompt' => $prompt, 'section' => $section, 'isNew' => $isNew));
         //
     }
 
 
     public function apiKeysSave(Request $request)
     {
-        $openAi = ApiKeys::where('name','openAi')->get();
+        $openAi = ApiKeys::where('name', 'openAi')->get();
 
-        if($openAi->count() > 0){
-          $updateKey =  ApiKeys::where('name','openAi')->update(array('apikey'=>$request->apikey));
-          $openAi = ApiKeys::where('name','openAi')->first();
-
-        }else{
-         $newKey = new ApiKeys();
-         $newKey->name = 'openAi';
-         $newKey->apikey = $request->apikey;
-         $newKey->save();
-         $openAi = ApiKeys::where('name','openAi')->first();
+        if ($openAi->count() > 0) {
+            $updateKey =  ApiKeys::where('name', 'openAi')->update(array('apikey' => $request->apikey));
+            $openAi = ApiKeys::where('name', 'openAi')->first();
+        } else {
+            $newKey = new ApiKeys();
+            $newKey->name = 'openAi';
+            $newKey->apikey = $request->apikey;
+            $newKey->save();
+            $openAi = ApiKeys::where('name', 'openAi')->first();
         }
 
         return view('admin.riskcurb.apiKeys', [
-            'openAi'=>$openAi
+            'openAi' => $openAi
         ]);
         //
     }
@@ -308,8 +301,7 @@ class RiskCurbApp extends Controller
 
         // $content = trim($result['choices'][0]['text']);
 
-        return view('admin.riskcurb.dashboard', ["content"=>$content ,"title"=> $title, "step"=>$step]);
-
+        return view('admin.riskcurb.dashboard', ["content" => $content, "title" => $title, "step" => $step]);
     }
 
 
@@ -319,49 +311,46 @@ class RiskCurbApp extends Controller
         $content = "";
         $title = "";
         $riskcurb_step = RiskCurb::where('tenant_id', $this->tenant_id)->first();
-        if( $riskcurb_step){
+        if ($riskcurb_step) {
             $this->step =  $riskcurb_step->steps += 1;
-        }else{
+        } else {
             $this->step = 1;
         }
         $dataValues = array(
-          "organization"=>$request->organization,
-          "organization_type"=>$request->organization_type,
-          "location"=>$request->location,
-          "city"=>$request->city,
-          "state"=>$request->state,
-          "country"=>$request->country,
-          "assets"=>$request->assets,
-          "products"=>$request->products,
-          "services"=>$request->services,
-          "structure_type"=>$request->structure_type,
-          "components"=>$request->components,
-          "customer_types"=>$request->customer_types,
-          "stakeholders"=>$request->stakeholders,
-          "workers"=>$request->workers,
-          "steps"=>$this->step,
+            "organization" => $request->organization,
+            "organization_type" => $request->organization_type,
+            "location" => $request->location,
+            "city" => $request->city,
+            "state" => $request->state,
+            "country" => $request->country,
+            "assets" => $request->assets,
+            "products" => $request->products,
+            "services" => $request->services,
+            "structure_type" => $request->structure_type,
+            "components" => $request->components,
+            "customer_types" => $request->customer_types,
+            "stakeholders" => $request->stakeholders,
+            "workers" => $request->workers,
+            "steps" => $this->step,
         );
 
         $riskcurb_data = RiskCurb::where('tenant_id', $this->tenant_id)->get();
-        if($riskcurb_data->count() > 0){
-            $update_request = RiskCurb::where('tenant_id', $this->tenant_id)->
-            update($dataValues);
-
-        }else{
+        if ($riskcurb_data->count() > 0) {
+            $update_request = RiskCurb::where('tenant_id', $this->tenant_id)->update($dataValues);
+        } else {
             $riskcurb_model = new RiskCurb();
             $riskcurb_model->tenant_id = $this->tenant_id;
             $riskcurb_model->organization = $request->organization;
             $riskcurb_model->save();
         }
 
-      if($this->step >= "12"){
-        // $result = $this->parsePrompt("Risk likely to face this organisation with stated information"); this was for generating ai options to give to the next Risk Bot Questions
+        if ($this->step >= "12") {
+            // $result = $this->parsePrompt("Risk likely to face this organisation with stated information"); this was for generating ai options to give to the next Risk Bot Questions
 
-        $content = "Awesome you finished Risk Bot Steps!!!!";
-      }
+            $content = "Awesome you finished Risk Bot Steps!!!!";
+        }
 
-        return view('admin.riskcurb.framework', ["content"=>$content ,"title"=> $title, "step"=>$this->step,"data"=>$riskcurb_step]);
-
+        return view('admin.riskcurb.framework', ["content" => $content, "title" => $title, "step" => $this->step, "data" => $riskcurb_step]);
     }
 
     public function apiKeysRemove()
@@ -369,16 +358,15 @@ class RiskCurbApp extends Controller
         $content = "";
         $title = "";
         $riskcurb_step = RiskCurb::where('tenant_id', $this->tenant_id)->first();
-        if( $riskcurb_step){
+        if ($riskcurb_step) {
             $this->step = 1;
-            RiskCurb::where('tenant_id', $this->tenant_id)->update(array('steps'=>$this->step));
-        }else{
-
+            RiskCurb::where('tenant_id', $this->tenant_id)->update(array('steps' => $this->step));
+        } else {
         }
 
         return view('admin.riskcurb.framework', [
-            'step'=>'1',"data"=>$riskcurb_step,
-            "content"=>$content ,"title"=> $title
+            'step' => '1', "data" => $riskcurb_step,
+            "content" => $content, "title" => $title
         ]);
         //
     }
