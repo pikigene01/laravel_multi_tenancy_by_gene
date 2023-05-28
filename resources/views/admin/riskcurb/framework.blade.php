@@ -63,8 +63,8 @@
         }
 
         /* ————————————————————–
-                  Tree core styles
-                */
+                      Tree core styles
+                    */
         .tree {
             margin: 1em;
         }
@@ -83,8 +83,8 @@
         }
 
         /* ————————————————————–
-                  Tree rows
-                */
+                      Tree rows
+                    */
         .tree li {
             line-height: 1.2;
             position: relative;
@@ -100,8 +100,8 @@
         }
 
         /* ————————————————————–
-                  Tree labels
-                */
+                      Tree labels
+                    */
         .tree_label {
             position: relative;
             display: inline-block;
@@ -117,8 +117,8 @@
         }
 
         /* ————————————————————–
-                  Tree expanded icon
-                */
+                      Tree expanded icon
+                    */
         label.tree_label:before {
             background: #000;
             color: #fff;
@@ -139,8 +139,8 @@
         }
 
         /* ————————————————————–
-                  Tree branches
-                */
+                      Tree branches
+                    */
         .tree li:before {
             position: absolute;
             top: 0;
