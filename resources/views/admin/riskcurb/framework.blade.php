@@ -63,8 +63,8 @@
         }
 
         /* ————————————————————–
-      Tree core styles
-    */
+                  Tree core styles
+                */
         .tree {
             margin: 1em;
         }
@@ -83,8 +83,8 @@
         }
 
         /* ————————————————————–
-      Tree rows
-    */
+                  Tree rows
+                */
         .tree li {
             line-height: 1.2;
             position: relative;
@@ -100,8 +100,8 @@
         }
 
         /* ————————————————————–
-      Tree labels
-    */
+                  Tree labels
+                */
         .tree_label {
             position: relative;
             display: inline-block;
@@ -117,8 +117,8 @@
         }
 
         /* ————————————————————–
-      Tree expanded icon
-    */
+                  Tree expanded icon
+                */
         label.tree_label:before {
             background: #000;
             color: #fff;
@@ -139,8 +139,8 @@
         }
 
         /* ————————————————————–
-      Tree branches
-    */
+                  Tree branches
+                */
         .tree li:before {
             position: absolute;
             top: 0;
@@ -677,6 +677,7 @@
     <script src="https://unpkg.com/marked" defer></script>
     <script>
         const items = document.querySelectorAll('.risk-item');
+        let count = 0;
 
         items.forEach((item) => {
             item.onclick = (e) => {
@@ -698,14 +699,36 @@
                             },
                             success: function(data) {
                                 let response = JSON.parse(data);
-                                $(`#${data_item}_content`).html(response.content);
+
+                                displayDataOneByOne(`#${data_item}_content`, 50, response
+                                    .content, count);
                             },
-                            error: function(data) {}
+                            error: function(data) {
+                                $(`#${data_item}_content`).html(
+                                    'Oops Something went wrong click again on the section item!!!'
+                                );
+                            }
                         });
                     }
                 });
             }
         });
+        const displayDataOneByOne = (node, dataInterval, data, count) => {
+            let responseLength = data?.length;
+            const responseInterval = setInterval(() => {
+                count += 1;
+                if (count <= responseLength) {
+                    var newHtml = data?.toString()
+                        .substr(0, count);
+                    $(node).html(newHtml);
+                }
+            }, dataInterval);
+
+            if (count >= responseLength) {
+                window.clearInterval(responseInterval);
+                count = 0;
+            }
+        }
 
         function isNumber(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
