@@ -700,7 +700,7 @@
                             success: function(data) {
                                 let response = JSON.parse(data);
 
-                                displayDataOneByOne(`#${data_item}_content`, 50, response
+                                displayDataOneByOne(`#${data_item}_content`, 150, response
                                     .content, count);
                             },
                             error: function(data) {
