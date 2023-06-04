@@ -45,6 +45,13 @@ class HomeController extends Controller
         }
     }
 
+    public function apiData(Request $request){
+        $plans = tenancy()->central(function ($tenant) {
+            return Plan::where('active_status',1)->get();
+        });
+        return json_encode(array("plans"=> $plans));
+    }
+
     public function sales(SalesDataTable $dataTable)
     {
         if (Auth::user()->type == 'Super Admin') {
