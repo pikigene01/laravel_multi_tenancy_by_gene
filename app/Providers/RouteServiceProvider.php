@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/riskcurb/framework';
+    public const HOME = '/risk/framework';
     /**
      * The controller namespace for the application.
      *

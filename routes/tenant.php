@@ -36,7 +36,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\RiskCurbApp;
+use App\Http\Controllers\RiskApp;
 
 
 /*

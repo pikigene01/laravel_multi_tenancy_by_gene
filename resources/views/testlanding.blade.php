@@ -212,7 +212,7 @@
     <section class="app-header">
         <div class="app-logo">
             <a href="/">
-                <img style="width:100px;"
+                <img style="width:60px;"
                     src="{{ Storage::exists('logo/app-logo.png') ? Utility::getpath('logo/app-logo.png') : Storage::url('logo/app-logo.png') }}"
                     class="app-logo img_setting">
             </a>
