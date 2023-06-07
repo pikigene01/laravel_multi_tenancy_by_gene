@@ -226,7 +226,7 @@ class RiskApp extends Controller
             $isNew = true;
         }
 
-        return view('admin.riskcurb.riskprompts', [
+        return view('admin.risk.riskprompts', [
             'prompt' => $prompt,
             'isNew' => $isNew,
             'section' => $section,
@@ -271,7 +271,7 @@ class RiskApp extends Controller
             $openAi = ApiKeys::where('name', 'openAi')->first();
         }
 
-        return view('admin.riskcurb.apiKeys', [
+        return view('admin.risk.apiKeys', [
             'openAi' => $openAi
         ]);
         //
