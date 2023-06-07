@@ -71,7 +71,7 @@ class AuthenticatedSessionController extends Controller
                 } else {
                     // dd($redirect->passwod)
                     $current_domain = $user->tenant->domains->first()->domain;
-                    $redirectUrl = '/riskcurb/framework';
+                    $redirectUrl = '/risk/framework';
                     $token = tenancy()->impersonate($user->tenant, 1, $redirectUrl);
                     // dd($token->token);
                     return redirect("http://$current_domain/tenant-impersonate/{$token->token}");

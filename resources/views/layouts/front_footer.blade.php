@@ -29,7 +29,7 @@
                     </li>
                 </ul>
                 <p class="text-body">© {{ date('Y') }},
-                    RiskCurb App
+                    Risk App
                     {{-- {{ config('app.name') }} --}}
                 </p>
             </div>

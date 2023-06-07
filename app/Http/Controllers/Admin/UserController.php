@@ -204,7 +204,7 @@ class UserController extends Controller
     //     if (\Auth::user()->can('impersonate-user')) {
     //         $user = User::find($id);
     //         $current_domain = $user->tenant->domains->first()->actual_domain;
-    //         $redirectUrl = '/riskcurb/framework';
+    //         $redirectUrl = '/risk/framework';
     //         $token = tenancy()->impersonate($user->tenant, $id, $redirectUrl);
     //         // dd($token->token);
     //         return redirect("http://$current_domain/impersonate/{$token->token}");

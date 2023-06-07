@@ -72,7 +72,7 @@
                     'class' => 'form-control companyname-change',
                     ' required',
                     'placeholder' => __('choose your app name'),
-                ]) !!} <span>https://<span class="companyname_wrapper"><span class="companyname">companyname</span>.riskcurb.app</span></span>
+                ]) !!} <span>https://<span class="companyname_wrapper"><span class="companyname">companyname</span>.risk.app</span></span>
             </div>
             {{-- <div class="form-group mb-3">
                 {{ Form::label('actual_domain', __('Actual Domain'), ['class' => 'form-label']) }}

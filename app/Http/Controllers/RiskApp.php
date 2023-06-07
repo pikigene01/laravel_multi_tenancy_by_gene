@@ -9,7 +9,7 @@ use App\Models\RiskCurbGeneratedContent;
 use App\Models\RiskCurbPrompts;
 use OpenAI\Client;
 
-class RiskCurbApp extends Controller
+class RiskApp extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -84,7 +84,7 @@ class RiskCurbApp extends Controller
             $this->step = 1;
         }
 
-        return view('admin.riskcurb.framework', ["content" => $content, "title" => $title, "step" => $this->step, "data" => $data]);
+        return view('admin.risk.framework', ["content" => $content, "title" => $title, "step" => $this->step, "data" => $data]);
         //
     }
 
@@ -176,14 +176,14 @@ class RiskCurbApp extends Controller
         $content = "No Reports for now!!!";
         $title = "";
 
-        return view('admin.riskcurb.reports', ["content" => $content, "title" => $title]);
+        return view('admin.risk.reports', ["content" => $content, "title" => $title]);
         //
     }
     public function apiKeys()
     {
         $openAi = ApiKeys::where('name', 'openAi')->first();
 
-        return view('admin.riskcurb.apiKeys', [
+        return view('admin.risk.apiKeys', [
             'openAi' => $openAi
         ]);
         //
@@ -202,7 +202,7 @@ class RiskCurbApp extends Controller
             $prompt = '';
             $isNew = true;
         }
-        return view('admin.riskcurb.riskcurbprompts', [
+        return view('admin.risk.riskprompts', [
             'prompt' => $prompt,
             'isNew' => $isNew,
         ]);
@@ -226,7 +226,7 @@ class RiskCurbApp extends Controller
             $isNew = true;
         }
 
-        return view('admin.riskcurb.riskcurbprompts', [
+        return view('admin.riskcurb.riskprompts', [
             'prompt' => $prompt,
             'isNew' => $isNew,
             'section' => $section,
@@ -301,7 +301,7 @@ class RiskCurbApp extends Controller
 
         // $content = trim($result['choices'][0]['text']);
 
-        return view('admin.riskcurb.dashboard', ["content" => $content, "title" => $title, "step" => $step]);
+        return view('admin.risk.dashboard', ["content" => $content, "title" => $title, "step" => $step]);
     }
 
 
@@ -350,7 +350,7 @@ class RiskCurbApp extends Controller
             $content = "Awesome you finished Risk Bot Steps!!!!";
         }
 
-        return view('admin.riskcurb.framework', ["content" => $content, "title" => $title, "step" => $this->step, "data" => $riskcurb_step]);
+        return view('admin.risk.framework', ["content" => $content, "title" => $title, "step" => $this->step, "data" => $riskcurb_step]);
     }
 
     public function apiKeysRemove()
@@ -364,7 +364,7 @@ class RiskCurbApp extends Controller
         } else {
         }
 
-        return view('admin.riskcurb.framework', [
+        return view('admin.risk.framework', [
             'step' => '1', "data" => $riskcurb_step,
             "content" => $content, "title" => $title
         ]);

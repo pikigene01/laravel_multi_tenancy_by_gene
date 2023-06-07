@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', __('RiskCurb Dashboard'))
+@section('title', __('Risk Dashboard'))
 @push('css')
 @endpush
 
@@ -27,7 +27,7 @@
         @endif
 
         <div class="col-md-12">
-            <h2>Our RiskCurb App comes here</h2>
+            <h2>Our Risk App comes here</h2>
 
             <div
                 class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">

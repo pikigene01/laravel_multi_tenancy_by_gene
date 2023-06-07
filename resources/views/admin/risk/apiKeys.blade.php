@@ -1,6 +1,6 @@
 
 @extends('layouts.main')
-@section('title', __('RiskCurb API Keys'))
+@section('title', __('Risk API Keys'))
 @push('css')
 @endpush
 
@@ -9,7 +9,7 @@
     <div class="row">
 
         <div class="col-md-12">
-            <h2>RiskCurb Api Keys</h2>
+            <h2>Risk Api Keys</h2>
 
             <section class="section">
                 <div class="col-sm-4 m-auto">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="card-body">
                             {!! Form::open([
-                                'route' => 'riskcurbKeys',
+                                'route' => 'riskKeys',
                                 'method' => 'Post',
                                 'enctype' => 'multipart/form-data',
                                 'data-validate',
@@ -41,7 +41,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="float-end">
-                                <a href="{{ route('riskcurbKeys') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
+                                <a href="{{ route('riskKeys') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                                    @if($openAi)
                                 {{ Form::button(__('Update'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}
                                   @else

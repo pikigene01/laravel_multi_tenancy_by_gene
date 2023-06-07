@@ -1,6 +1,6 @@
 
 @extends('layouts.main')
-@section('title', __('RiskCurb Admin Prompts'))
+@section('title', __('Risk Admin Prompts'))
 @push('css')
 @endpush
 
@@ -9,7 +9,7 @@
     <div class="row">
 
         <div class="col-md-12">
-            <h2>RiskCurb Admin Prompts</h2>
+            <h2>Risk Admin Prompts</h2>
 
             <section class="section">
                 <div class="col-sm-4 m-auto">

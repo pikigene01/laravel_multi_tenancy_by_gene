@@ -56,20 +56,20 @@ Route::middleware([
     InitializeTenancyByDomainOrSubdomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::get('/riskcurb', [RiskCurbApp::class, 'index'])->name('riskcurb')->middleware(['auth', 'xss']);
-    Route::get('/riskcurb/framework', [RiskCurbApp::class, 'indexFramework'])->name('riskcurb.framework')->middleware(['auth', 'xss']);
-    Route::get('/riskcurb/reports', [RiskCurbApp::class, 'indexFramework'])->name('riskcurb.reports')->middleware(['auth', 'xss']);
-    Route::get('/riskcurb/documents', [RiskCurbApp::class, 'indexFramework'])->name('riskcurb.documents')->middleware(['auth', 'xss']);
-    Route::get('/riskcurb/insurance', [RiskCurbApp::class, 'indexFramework'])->name('riskcurb.insurance')->middleware(['auth', 'xss']);
-    Route::post('/riskcurb/framework/create', [RiskCurbApp::class, 'createFramework'])->name('framework.create')->middleware(['auth', 'xss']);
-    Route::get('/riskcurbKeys', [RiskCurbApp::class, 'apiKeys'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
-    Route::get('/riskcurbprompts', [RiskCurbApp::class, 'adminPrompts'])->name('Adminprompts')->middleware(['auth', 'xss']);
-    Route::post('/riskcurbprompts/save', [RiskCurbApp::class, 'adminpromptsSave'])->name('AdminpromptsSave')->middleware(['auth', 'xss']);
-    Route::post('/riskcurbprompts/api', [RiskCurbApp::class, 'adminPromptsApi'])->name('AdminpromptsApi')->middleware(['auth', 'xss']);
-    Route::post('/riskcurbprompts/api/generate', [RiskCurbApp::class, 'adminPromptsApiGenerate'])->name('SectionGenerateData')->middleware(['auth', 'xss']);
-    Route::get('/framework/Cancel', [RiskCurbApp::class, 'apiKeysRemove'])->name('riskcurbKeysCancel')->middleware(['auth', 'xss']);
-    Route::post('/riskcurbKeys', [RiskCurbApp::class, 'apiKeysSave'])->name('riskcurbKeys')->middleware(['auth', 'xss']);
-    Route::post('/risks/generate', [RiskCurbApp::class, 'create'])->name('risks.generate')->middleware(['auth', 'xss']);
+    Route::get('/risk', [RiskApp::class, 'index'])->name('risk')->middleware(['auth', 'xss']);
+    Route::get('/risk/framework', [RiskApp::class, 'indexFramework'])->name('risk.framework')->middleware(['auth', 'xss']);
+    Route::get('/risk/reports', [RiskApp::class, 'indexFramework'])->name('risk.reports')->middleware(['auth', 'xss']);
+    Route::get('/risk/documents', [RiskApp::class, 'indexFramework'])->name('risk.documents')->middleware(['auth', 'xss']);
+    Route::get('/risk/insurance', [RiskApp::class, 'indexFramework'])->name('risk.insurance')->middleware(['auth', 'xss']);
+    Route::post('/risk/framework/create', [RiskApp::class, 'createFramework'])->name('framework.create')->middleware(['auth', 'xss']);
+    Route::get('/riskKeys', [RiskApp::class, 'apiKeys'])->name('riskKeys')->middleware(['auth', 'xss']);
+    Route::get('/riskprompts', [RiskApp::class, 'adminPrompts'])->name('Adminprompts')->middleware(['auth', 'xss']);
+    Route::post('/riskprompts/save', [RiskApp::class, 'adminpromptsSave'])->name('AdminpromptsSave')->middleware(['auth', 'xss']);
+    Route::post('/riskprompts/api', [RiskApp::class, 'adminPromptsApi'])->name('AdminpromptsApi')->middleware(['auth', 'xss']);
+    Route::post('/riskprompts/api/generate', [RiskApp::class, 'adminPromptsApiGenerate'])->name('SectionGenerateData')->middleware(['auth', 'xss']);
+    Route::get('/framework/Cancel', [RiskApp::class, 'apiKeysRemove'])->name('riskKeysCancel')->middleware(['auth', 'xss']);
+    Route::post('/riskKeys', [RiskApp::class, 'apiKeysSave'])->name('riskKeys')->middleware(['auth', 'xss']);
+    Route::post('/risks/generate', [RiskApp::class, 'create'])->name('risks.generate')->middleware(['auth', 'xss']);
 
     Route::get('/test-mail', [SettingsController::class, 'testMail'])->name('test.mail')->middleware(['auth', 'xss']);
     // Route::get('landing-page', [SettingsController::class, 'landingPage'])->name('landing.page');

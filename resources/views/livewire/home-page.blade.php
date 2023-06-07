@@ -22,7 +22,7 @@
                     @if (Utility::getsettings('apps_title'))
                         {{ Utility::getsettings('apps_title') }}
                     @else
-                        {{ __('RiskCurb') }}
+                        {{ __('Risk') }}
                     @endif
                     <br />
                 </h2>

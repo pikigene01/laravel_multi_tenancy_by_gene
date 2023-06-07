@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', __('RiskCurb'))
+@section('title', __('AI Generated Risks'))
 @push('css')
     <style type="text/css">
         .risk-border-tiny {
@@ -227,10 +227,10 @@
                         <div class="middle_content"
                             style={{ request()->is('*framework*') ? 'display:block;' : 'display:none;' }}>
                             <div id="progress_content" class="content">
-                                <h3>Your Progress: </h3><span> This section shows your progress between RiskCurb and your
+                                <h3>Your Progress: </h3><span> This section shows your progress between risk and your
                                     organization. </span>
                                 <p>We will generate risks based on your organization information you answered from our
-                                    RiskCurb Bot.</p>
+                                    Risks Bot.</p>
 
                                 <div class="progressWrapper">
                                     {{-- <div id="fontSizeWrapper">
@@ -651,7 +651,7 @@
 
                         <div class="form-group">
                             <div class="float-end">
-                                <a href="{{ route('riskcurbKeysCancel') }}"
+                                <a href="{{ route('riskKeysCancel') }}"
                                     class="btn btn-secondary">{{ __('Start') }}</a>
                                 @if ($step >= '11')
                                     {{ Form::button(__('Finish'), ['type' => 'submit', 'class' => 'btn btn-primary']) }}

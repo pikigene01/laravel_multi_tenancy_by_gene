@@ -221,7 +221,7 @@
             <a class="menu-link" href="#">Home</a>
             <a class="menu-link" href="/#pricing">Pricing</a>
             @if (\Auth::user())
-                <a class="menu-link" href="/riskcurb/framework"><span class="app-btn btn-outline">Account </span></a>
+                <a class="menu-link" href="/risk/framework"><span class="app-btn btn-outline">Account </span></a>
             @else
                 <a class="menu-link" href="/login"><span class="app-btn btn-solid">Start Today </span></a>
             @endif
@@ -233,7 +233,7 @@
 <section class="risk-hero">
     <div class="risk-hero-top">
         <span class="hero-text"> This is </span>
-        <img src="{{ asset('public/images/arrow.png') }}" alt="icon" class="arrow-img-top" />
+        <img src="{{ asset('images/arrow.png') }}" alt="icon" class="arrow-img-top" />
 
     </div>
     <div class="risk-hero-middle hero-pink-title">
@@ -245,14 +245,14 @@
                 Get Started - It's Free
             </span></a>
 
-        <img src="{{ asset('public/images/arrow.png') }}" alt="icon" class="arrow-img-bottom" />
+        <img src="{{ asset('images/arrow.png') }}" alt="icon" class="arrow-img-bottom" />
     </div>
 
 </section>
 
 
 <div id="brxe-mjrhwz">
-    <h5 class="brxe-text-basic">RiskCurb will take your ERM from 0 to 100.</h5>
+    <h5 class="brxe-text-basic">risk will take your ERM from 0 to 100.</h5>
     <h4 class="brxe-text-basic">Guaranteed.</h4>
 </div>
 
@@ -326,7 +326,7 @@
                         @if (Utility::getsettings('faq_paragraph'))
                             {{ Utility::getsettings('faq_paragraph') }}
                         @else
-                            {{ __(" RiskCurb Faq Content Goes Here.") }}
+                            {{ __(" risk Faq Content Goes Here.") }}
                         @endif
                     </p>
                 </div>

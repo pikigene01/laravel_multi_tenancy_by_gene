@@ -28,7 +28,7 @@ return [
      * Only used in the built-in controller.
      * * Use 'back' to redirect to the previous page
      */
-    'take_redirect_to' => '/riskcurb/framework',
+    'take_redirect_to' => '/risk/framework',
 
     /**
      * The URI to redirect after leaving an impersonation.
@@ -36,6 +36,6 @@ return [
      * Only used in the built-in controller.
      * Use 'back' to redirect to the previous page
      */
-    'leave_redirect_to' => '/riskcurb/framework',
+    'leave_redirect_to' => '/risk/framework',
 
 ];

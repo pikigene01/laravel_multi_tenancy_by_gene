@@ -25,24 +25,24 @@
                 {{-- @if (tenant('id') != null) --}}
 
                 <li
-                class="dash-item dash-hasmenu {{ request()->is('riskcurb*') || request()->is('framework*') ? 'active dash-trigger' : 'collapsed' }}">
+                class="dash-item dash-hasmenu {{ request()->is('risk*') || request()->is('framework*') ? 'active dash-trigger' : 'collapsed' }}">
                 <a href="#!" class="dash-link"><span class="dash-micon"><i
-                            class="ti" style="font-size: 10px;font-weight:800;">RM</i></span><span
-                        class="dash-mtext">{{ 'RiskCurb' }}</span><span class="dash-arrow"><i
+                            class="ti" style="font-size: 10px;font-weight:800;">AI</i></span><span
+                        class="dash-mtext">{{ 'AI Risks' }}</span><span class="dash-arrow"><i
                             data-feather="chevron-right"></i></span></a>
                 <ul class="dash-submenu">
 
                     <li class="dash-item {{ request()->is('framework*') ? 'active' : '' }}">
-                        <a class="dash-link" href="{{ route('riskcurb.framework') }}">{{ __('RM Framework') }}</a>
+                        <a class="dash-link" href="{{ route('risk.framework') }}">{{ __('RM Framework') }}</a>
                     </li>
                     <li class="dash-item {{ request()->is('reports') ? 'active' : '' }}">
-                        <a class="dash-link" href="{{ route('riskcurb.reports') }}">{{ __('Reports') }}</a>
+                        <a class="dash-link" href="{{ route('risk.reports') }}">{{ __('Reports') }}</a>
                     </li>
                     <li class="dash-item {{ request()->is('insurance') ? 'active' : '' }}">
-                        <a class="dash-link" href="{{ route('riskcurb.insurance') }}">{{ __('insurance') }}</a>
+                        <a class="dash-link" href="{{ route('risk.insurance') }}">{{ __('insurance') }}</a>
                     </li>
                     <li class="dash-item {{ request()->is('documents') ? 'active' : '' }}">
-                        <a class="dash-link" href="{{ route('riskcurb.documents') }}">{{ __('Documents') }}</a>
+                        <a class="dash-link" href="{{ route('risk.documents') }}">{{ __('Documents') }}</a>
                     </li>
 
                 </ul>
@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="dash-item dash-hasmenu ">
-                    <a href="{{ route('riskcurbKeys') }}" class="dash-link">
+                    <a href="{{ route('riskKeys') }}" class="dash-link">
                         <span class="dash-micon"><i class="ti ti-key"></i></span>
                         <span class="dash-mtext">{{ __('Api Keys') }}</span>
                     </a>
